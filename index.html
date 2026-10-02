@@ -17,21 +17,21 @@
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    :root{--p:#006994;--pd:#004A68;--pl:#E4F1FA;--bg:#F4F6FA;--card:#fff;--t1:#111;--t2:#666;--bd:rgba(0,0,0,.11);--bds:rgba(0,0,0,.22);--rad:10px;--ok:#1B5E20;--okl:#E8F5E9;--warn:#E65100;--warnl:#FFF3E0;--bad:#B71C1C;--badl:#FFEBEE}
+    :root{--p:#006994;--pd:#004A68;--pl:#E4F1FA;--bg:#F4F6FA;--card:#fff;--t1:#111;--t2:#666;--bd:rgba(0,0,0,.11);--bds:rgba(0,0,0,.22);--rad:10px;--ok:#1B5E20;--okl:#E8F5E9;--warn:#E65100;--warnl:#FFF3E0;--bad:#B71C1C;--oxide:#B5502F;--badl:#FFEBEE}
     body{font-family:'DM Sans','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--t1);font-size:13px}
     .container{max-width:1480px;margin:0 auto;padding:20px}
     .header{background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;padding:22px;border-radius:var(--rad);margin-bottom:16px;display:flex;justify-content:space-between;gap:16px;align-items:center}
     .header h1{font-size:26px;margin-bottom:5px;display:flex;align-items:center;gap:10px;font-weight:700}
     .header p{opacity:.9;font-size:13px}.userbox{background:rgba(255,255,255,.18);padding:11px 14px;border-radius:8px;min-width:210px}.userbox .lbl{font-size:10px;opacity:.85;margin-bottom:5px;text-transform:uppercase;letter-spacing:.7px}.userbox .nm{font-size:13px;font-weight:700}
-    .tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}.tab-btn{padding:9px 14px;border-radius:7px;border:1px solid var(--bds);background:var(--card);color:var(--t1);cursor:pointer;font-size:12px;font-weight:600;transition:all .15s;display:flex;align-items:center;gap:6px;font-family:inherit}.tab-btn:hover{border-color:var(--p);background:var(--pl)}.tab-btn.active{background:var(--p);color:#fff;border-color:var(--p)}
+    .tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}.tab-btn{padding:9px 14px;border-radius:7px;border:1px solid var(--bds);background:var(--card);color:var(--t1);cursor:pointer;font-size:12px;font-weight:600;transition:all .15s;display:flex;align-items:center;gap:6px;font-family:inherit}.tab-btn:hover{border-color:var(--p);background:var(--pl)}.tab-btn.active{background:var(--oxide);color:#fff;border-color:var(--oxide)}
     .tab-btn .cnt{background:var(--bad);color:#fff;border-radius:10px;padding:0 6px;font-size:10px;line-height:16px}
-    .subtabs{display:flex;gap:4px;border-bottom:1px solid var(--bd);margin-bottom:14px;flex-wrap:wrap}.subtab{padding:8px 13px;border:none;background:none;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;color:var(--t2);border-bottom:2px solid transparent;display:flex;gap:5px;align-items:center}.subtab.active{color:var(--p);border-bottom-color:var(--p)}
+    .subtabs{display:flex;gap:4px;border-bottom:1px solid var(--bd);margin-bottom:14px;flex-wrap:wrap}.subtab{padding:8px 13px;border:none;background:none;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;color:var(--t2);border-bottom:2px solid transparent;display:flex;gap:5px;align-items:center}.subtab.active{color:var(--oxide);border-bottom-color:var(--oxide)}
     .tab-content{display:none}.tab-content.active{display:block}.card{background:var(--card);border-radius:var(--rad);border:.5px solid var(--bd);padding:16px;margin-bottom:14px}.card-header{font-size:13px;font-weight:700;margin:-16px -16px 14px;padding:12px 16px;border-bottom:.5px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
     .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:14px}.stat{background:var(--card);border-radius:var(--rad);border:.5px solid var(--bd);padding:13px;display:flex;gap:11px;align-items:center}.stat-icon{width:36px;height:36px;background:var(--pl);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--p);font-size:19px;flex-shrink:0}.stat-value{font-size:20px;font-weight:700;color:var(--p)}.stat-label{font-size:10px;color:var(--t2);text-transform:uppercase;letter-spacing:.4px}
     .stat.alert .stat-icon{background:var(--badl);color:var(--bad)}.stat.alert .stat-value{color:var(--bad)}
     table{width:100%;border-collapse:collapse}th{padding:8px 9px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;background:#f5f5f5;border-bottom:.5px solid var(--bd);color:var(--t2);white-space:nowrap}td{padding:8px 9px;border-bottom:.5px solid var(--bd);vertical-align:top}tr:hover td{background:#fafafa}.table-wrap{overflow-x:auto}
     td.num,th.num{text-align:right;white-space:nowrap}
-    .btn{padding:7px 12px;border-radius:7px;border:.5px solid var(--bds);background:transparent;color:var(--t1);cursor:pointer;font-size:12px;font-weight:600;transition:all .15s;display:inline-flex;align-items:center;gap:5px;font-family:inherit;white-space:nowrap}.btn:hover{background:#f0f0f0}.btn.primary{background:var(--p);color:#fff;border-color:var(--p)}.btn.primary:hover{background:var(--pd)}.btn.ok{background:var(--ok);color:#fff;border-color:var(--ok)}.btn.ok:hover{background:#14461a}.btn.bad{color:var(--bad);border-color:#EF9A9A}.btn.sm{padding:5px 9px;font-size:11px}.btn:disabled{opacity:.45;cursor:not-allowed}
+    .btn{padding:7px 12px;border-radius:7px;border:.5px solid var(--bds);background:transparent;color:var(--t1);cursor:pointer;font-size:12px;font-weight:600;transition:all .15s;display:inline-flex;align-items:center;gap:5px;font-family:inherit;white-space:nowrap}.btn:hover{background:#f0f0f0}.btn.primary{background:var(--oxide);color:#fff;border-color:var(--oxide)}.btn.primary:hover{background:#944225}.btn.ok{background:var(--ok);color:#fff;border-color:var(--ok)}.btn.ok:hover{background:#14461a}.btn.bad{color:var(--bad);border-color:#EF9A9A}.btn.sm{padding:5px 9px;font-size:11px}.btn:disabled{opacity:.45;cursor:not-allowed}
     .btn-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
     input,select,textarea{font-family:inherit;width:100%;padding:7px 9px;border:1px solid var(--bd);border-radius:7px;background:#fafafa;color:var(--t1);font-size:12.5px}input:focus,select:focus,textarea:focus{outline:none;border-color:var(--p);background:#fff}textarea{min-height:70px;resize:vertical}
     input[type="checkbox"],input[type="radio"]{width:16px;height:16px;padding:0;margin:0;flex-shrink:0;accent-color:var(--p)}
@@ -61,7 +61,7 @@
 <body>
 <div id="appContainer" class="container" style="display:none">
   <div class="header">
-    <div><h1><i class="ti ti-shopping-cart"></i> ProMS</h1><p>Procurement Management — BOQ, PCA baseline, 3-quote comparison, PO issue &amp; approvals</p></div>
+    <div><h1><i class="ti ti-shopping-cart"></i> ProMS</h1><p>Procurement Management — PECS baseline, 3-quote comparison, PO issue &amp; approvals</p></div>
     <div class="userbox"><div class="lbl">Logged in as</div><div class="nm" id="currentUser">-</div></div>
   </div>
   <div class="tabs" id="mainTabs">
@@ -80,7 +80,7 @@
   <section id="tab-settings" class="tab-content"></section>
 </div>
 <div id="modalRoot"></div>
-<input type="file" id="fileBoq" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleBoqFile(this)">
+<input type="file" id="filePecs" accept=".xlsx,.xls" style="display:none" onchange="handlePecsFile(this)">
 <input type="file" id="filePca" accept=".xlsx,.xls" style="display:none" onchange="handlePcaFile(this)">
 <script>
 const DQAP_LOGO='data:image/png;base64,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';
@@ -147,14 +147,14 @@ firebase.initializeApp({
 const db=firebase.firestore();
 const USERS_COL='dqap_users',PROJ_COL='dqap_projects';
 const PM_PROJ='dqap_proms_projects',PM_VEND='dqap_proms_vendors',PM_CS='dqap_proms_comparisons',PM_PO='dqap_proms_pos',PM_SET='dqap_proms_settings',PM_CNT='dqap_proms_counters',PM_DATA='dqap_proms_projdata';
-let pmBase={},pmHeavy={};   // project record (small) + BOQ/PCA documents (large, kept separate to stay under Firestore's 1 MiB doc limit)
-function composePm(){const o={};new Set([...Object.keys(pmBase),...Object.keys(pmHeavy)]).forEach(id=>{const b=pmBase[id]||{id},h=pmHeavy[id]||{};o[id]={...b,...(h.boq!==undefined?{boq:h.boq}:{}),...(h.pca!==undefined?{pca:h.pca}:{})}});pmData=o}
+let pmBase={},pmHeavy={};   // project record (small) + PECS documents (large, kept separate to stay under Firestore's 1 MiB doc limit)
+function composePm(){const o={};new Set([...Object.keys(pmBase),...Object.keys(pmHeavy)]).forEach(id=>{const b=pmBase[id]||{id},h=pmHeavy[id]||{};const d=derivePecsBaseline(h.pecs?.active);o[id]={...b,salesPca:h.salesPca||null,pecs:h.pecs?.active||null,pecsPending:h.pecs?.pending||null,boq:d.boq,pca:d.pca}});pmData=o}
 const DRIVE_UPLOAD_API_URL='https://upload-receipt-932523956178.asia-south2.run.app';
 const MAX_UPLOAD_BYTES=15*1024*1024;
 const PROMS_BUILD='20261001.1';
 const MIN_QUOTES=3;
-// PO status flow: PENDING_PRATIM → (over PCA ? PENDING_UPDESH : RELEASED). REJECTED → buyer revises → PENDING_PRATIM. RELEASED → CANCELLED (Updesh only).
-const PO_STATUS={PENDING_PRATIM:'Pending Pratim',PENDING_UPDESH:'Pending Updesh (Over PCA)',RELEASED:'Released',AMEND_PRATIM:'Amendment — Pending Pratim',AMEND_UPDESH:'Amendment — Pending Updesh (Over PCA)',REJECTED:'Rejected',CANCELLED:'Cancelled'};
+// PO status flow: PENDING_PRATIM → (over PECS ? PENDING_UPDESH : RELEASED). REJECTED → buyer revises → PENDING_PRATIM. RELEASED → CANCELLED (Updesh only).
+const PO_STATUS={PENDING_PRATIM:'Pending Pratim',PENDING_UPDESH:'Pending Updesh (Over PECS)',RELEASED:'Released',AMEND_PRATIM:'Amendment — Pending Pratim',AMEND_UPDESH:'Amendment — Pending Updesh (Over PECS)',REJECTED:'Rejected',CANCELLED:'Cancelled'};
 const ACTIVE_PO=['PENDING_PRATIM','PENDING_UPDESH','RELEASED','AMEND_PRATIM','AMEND_UPDESH'];
 const AMEND_STATES=['AMEND_PRATIM','AMEND_UPDESH'];
 // Fields that make up a PO “version”. Snapshotted before every amendment so any earlier version can be re-printed.
@@ -283,7 +283,7 @@ function startListeners(){
   const err=label=>e=>showToast(`Could not load ${label}: `+e.message,'error');
   unsubs.push(db.collection(PROJ_COL).onSnapshot(sn=>{projectsData=sn.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>String(b.number||'').localeCompare(String(a.number||''),undefined,{numeric:true}));renderAll()},err('projects')));
   unsubs.push(db.collection(PM_PROJ).onSnapshot(sn=>{pmBase={};sn.docs.forEach(d=>pmBase[d.id]={id:d.id,...d.data()});composePm();renderAll()},err('ProMS projects')));
-  unsubs.push(db.collection(PM_DATA).onSnapshot(sn=>{pmHeavy={};sn.docs.forEach(d=>{const x=d.data(),pid=x.projectId;if(!pid)return;pmHeavy[pid]=pmHeavy[pid]||{};if(x.kind==='boq')pmHeavy[pid].boq=x.items||[];if(x.kind==='pca')pmHeavy[pid].pca=x.pca||null});composePm();renderAll()},err('ProMS project data')));
+  unsubs.push(db.collection(PM_DATA).onSnapshot(sn=>{pmHeavy={};sn.docs.forEach(d=>{const x=d.data(),pid=x.projectId;if(!pid)return;pmHeavy[pid]=pmHeavy[pid]||{};if(x.kind==='pca')pmHeavy[pid].salesPca=x.pca||null;if(x.kind==='pecs')pmHeavy[pid].pecs={active:x.active||null,pending:x.pending||null}});composePm();renderAll()},err('ProMS project data')));
   unsubs.push(db.collection(PM_VEND).onSnapshot(sn=>{vendorsData=sn.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>String(a.name||'').localeCompare(String(b.name||'')));renderAll()},err('vendors')));
   unsubs.push(db.collection(PM_CS).onSnapshot(sn=>{csData=sn.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')));renderAll()},err('comparisons')));
   unsubs.push(db.collection(PM_PO).onSnapshot(sn=>{poData=sn.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')));renderAll()},err('POs')));
@@ -430,61 +430,9 @@ function parsePcaWorkbook(wb,fileName){
 }
 
 // ═══════════════════════════════════════════════════════════════════════
-// BOQ PARSER (simple item list: S.No | Description | Make/Model | Unit | Qty | Category | Remarks)
-// ═══════════════════════════════════════════════════════════════════════
-function parseBoqWorkbook(wb){
-  for(const name of wb.SheetNames){
-    const rows=sheetRows(wb.Sheets[name]);const hdr=findHeaderRow(rows,25);if(!hdr||hdr.map.qty==null)continue;
-    const m=hdr.map,out=[];
-    for(let i=hdr.idx+1;i<rows.length;i++){
-      const r=rows[i]||[];const desc=cellText(r[m.desc]);if(!desc)continue;if(/^total/i.test(desc)||/^total/i.test(cellText(r[0])))continue;
-      out.push({sno:m.sno!=null?cellText(r[m.sno]):String(out.length+1),description:desc,make:m.make!=null?cellText(r[m.make]):'',unit:m.unit!=null?cellText(r[m.unit]):'Nos',qty:num(r[m.qty]),category:m.cat!=null?cellText(r[m.cat]):'',remarks:m.rem!=null?cellText(r[m.rem]):''});
-    }
-    if(out.length)return out;
-  }
-  return[];
-}
-function downloadBoqTemplate(){
-  const ws=XLSX.utils.aoa_to_sheet([['S.No','Item / Description','Make / Model / Part No','Unit','Qty','Category','Remarks'],[1,'MX Photo/Heat Sensor','4098-5255','Nos',18,'OEM Domestic',''],[2,'2 Pair x 1.5 Sq. mm unarmoured FRLS cable','','Mtr',400,'Local 3rd Party','']]);
-  ws['!cols']=[{wch:6},{wch:48},{wch:24},{wch:8},{wch:8},{wch:18},{wch:24}];
-  const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'BOQ');
-  downloadBlob('ProMS_BOQ_Template.xlsx',new Blob([XLSX.write(wb,{type:'array',bookType:'xlsx'})],{type:'application/octet-stream'}));
-}
-
-// ═══════════════════════════════════════════════════════════════════════
-// BOQ ↔ PCA auto-matching
-// ═══════════════════════════════════════════════════════════════════════
-const STOP=new Set(['the','and','of','for','with','x','nos','no','set','to','in','a','an','mm','sq']);
-function toks(s){return norm(s).replace(/[^a-z0-9]+/g,' ').split(' ').filter(t=>t.length>=2&&!STOP.has(t))}
-function codeKey(s){return norm(s).replace(/[^a-z0-9]/g,'')}
-function codes(s){return new Set(norm(s).split(/[\s,;()]+/).map(t=>t.replace(/[^a-z0-9]/g,'')).filter(t=>t.length>=3&&/\d/.test(t)))}
-function matchScore(boq,pca){
-  const bm=codeKey(boq.make),pm=codeKey(pca.make);
-  if(bm&&pm&&bm.length>=4&&bm===pm)return 1;
-  const CA=codes(boq.description+' '+boq.make),CB=codes(pca.description+' '+pca.make);
-  let codeHit=false;CA.forEach(c=>{if(CB.has(c))codeHit=true});
-  if(codeHit)return 1;
-  const A=new Set(toks(boq.description+' '+boq.make)),B=new Set(toks(pca.description+' '+pca.make));
-  if(!A.size||!B.size)return 0;
-  let inter=0;A.forEach(t=>{if(B.has(t))inter++});
-  let sc=inter/(A.size+B.size-inter);
-  if(CA.size&&CB.size)sc*=0.5; // both carry part numbers and none match → likely a different variant
-  return Math.min(1,sc);
-}
-function autoMatch(boqItems,pca,overwrite){
-  if(!pca)return boqItems;
-  const cand=pca.items.filter(i=>i.procurable);
-  return boqItems.map(b=>{
-    if(b.pcaKey&&!overwrite&&cand.some(c=>c.key===b.pcaKey))return b;
-    let best=null,bs=0;cand.forEach(c=>{const s=matchScore(b,c);if(s>bs){bs=s;best=c}});
-    return{...b,pcaKey:bs>=0.4?best.key:'',matchScore:r2(bs),matchMode:bs>=0.4?'auto':''};
-  });
-}
-
-// ═══════════════════════════════════════════════════════════════════════
 // Aggregations used by comparison, PO check and dashboards
 // ═══════════════════════════════════════════════════════════════════════
-function pmProj(pid){return pmData[pid]||{boq:[],pca:null}}
+function pmProj(pid){return pmData[pid]||{boq:[],pca:null,salesPca:null,pecs:null,pecsPending:null}}
 function pcaItem(pid,key){return(pmProj(pid).pca?.items||[]).find(i=>i.key===key)}
 function boqItem(pid,id){return(pmProj(pid).boq||[]).find(i=>i.id===id)}
 function lineNetRate(l){return r2(num(l.rate)*(1-num(l.discPct)/100))}
@@ -497,7 +445,7 @@ function poInrValue(po){return r2((po.totals?.basic||0)*(num(po.fxRate)||1)+(num
 function projectOrderedTotal(pid,excludeId){return r2(activePOs(pid,excludeId).reduce((s,po)=>s+poInrValue(po),0))}
 
 // ═══════════════════════════════════════════════════════════════════════
-// PCA CHECK — the core control. Evaluated when a PO is drafted, re-evaluated
+// PECS CHECK — the core control (baseline = active PECS). Evaluated when a PO is drafted, re-evaluated
 // (and frozen into the PO) at submission. All values ex-GST, in ₹.
 // ═══════════════════════════════════════════════════════════════════════
 function evaluatePca(pid,lines,opts={}){
@@ -506,12 +454,12 @@ function evaluatePca(pid,lines,opts={}){
   const prior=orderedByPca(pid,opts.excludePoId);
   const addTo={};
   lines.forEach(l=>{if(l.pcaKey){const x=addTo[l.pcaKey]||(addTo[l.pcaKey]={qty:0,value:0});x.qty+=num(l.qty);x.value+=num(l.qty)*lineNetRate(l)*fx}});
-  if(!pca){flags.push({type:'NO_PCA',msg:'No PCA uploaded for this project — PO cannot be validated against costing'})}
+  if(!pca){flags.push({type:'NO_PCA',msg:'No active PECS for this project — PO cannot be validated against the execution cost sheet'})}
   lines.forEach(l=>{
     const res={boqId:l.boqId,pcaKey:l.pcaKey||'',flags:[]};
     const rateInr=r2(lineNetRate(l)*fx);res.poRateInr=rateInr;
     const pi=pca&&l.pcaKey?pca.items.find(i=>i.key===l.pcaKey):null;
-    if(pca&&!pi){const f={type:'NOT_IN_PCA',boqId:l.boqId,item:l.description,msg:`“${l.description}” is not linked to any PCA line`,overAmt:r2(rateInr*num(l.qty))};flags.push(f);res.flags.push(f)}
+    if(pca&&!pi){const f={type:'NOT_IN_PCA',boqId:l.boqId,item:l.description,msg:`“${l.description}” is not in the active PECS`,overAmt:r2(rateInr*num(l.qty))};flags.push(f);res.flags.push(f)}
     if(pi){
       // Foreign-currency PO against an import line → compare ex-duty CIF rate (duty is paid separately to customs, not to the vendor)
       const foreignPo=fx!==1||(opts.currency&&opts.currency!=='INR');
@@ -519,16 +467,16 @@ function evaluatePca(pid,lines,opts={}){
       res.pcaRate=benchRate;res.pcaQty=pi.qty;res.pcaAmount=benchAmt;res.benchBasis=benchRate!==pi.rate?'ex-duty':'landed';
       const p=prior[pi.key]||{qty:0,value:0},t=addTo[pi.key];
       res.cumQty=r2(p.qty+t.qty);res.cumValue=r2(p.value+t.value);res.priorQty=r2(p.qty);
-      if(rateInr>benchRate*tol+0.005){const f={type:'RATE',boqId:l.boqId,item:l.description,msg:`Rate ${inr2(rateInr)} exceeds PCA rate ${inr2(benchRate)}${res.benchBasis==='ex-duty'?' (ex-duty)':''} (+${benchRate?fmt((rateInr/benchRate-1)*100,1):'∞'}%)`,overAmt:r2((rateInr-benchRate)*num(l.qty))};flags.push(f);res.flags.push(f)}
-      if(res.cumQty>pi.qty+1e-9){const f={type:'QTY',boqId:l.boqId,item:l.description,msg:`Cumulative qty ${fmt(res.cumQty,2)} exceeds PCA qty ${fmt(pi.qty,2)} (already ordered ${fmt(p.qty,2)})`,overAmt:r2((res.cumQty-pi.qty)*rateInr)};flags.push(f);res.flags.push(f)}
-      if(res.cumValue>benchAmt*tol+0.5){const f={type:'VALUE',boqId:l.boqId,item:l.description,msg:`Cumulative value ${inr(res.cumValue)} exceeds PCA amount ${inr(benchAmt)}`,overAmt:r2(res.cumValue-benchAmt)};if(!res.flags.length){flags.push(f)}res.flags.push(f)}
+      if(rateInr>benchRate*tol+0.005){const f={type:'RATE',boqId:l.boqId,item:l.description,msg:`Rate ${inr2(rateInr)} exceeds PECS rate ${inr2(benchRate)}${res.benchBasis==='ex-duty'?' (ex-duty)':''} (+${benchRate?fmt((rateInr/benchRate-1)*100,1):'∞'}%)`,overAmt:r2((rateInr-benchRate)*num(l.qty))};flags.push(f);res.flags.push(f)}
+      if(res.cumQty>pi.qty+1e-9){const f={type:'QTY',boqId:l.boqId,item:l.description,msg:`Cumulative qty ${fmt(res.cumQty,2)} exceeds PECS qty ${fmt(pi.qty,2)} (already ordered ${fmt(p.qty,2)})`,overAmt:r2((res.cumQty-pi.qty)*rateInr)};flags.push(f);res.flags.push(f)}
+      if(res.cumValue>benchAmt*tol+0.5){const f={type:'VALUE',boqId:l.boqId,item:l.description,msg:`Cumulative value ${inr(res.cumValue)} exceeds PECS amount ${inr(benchAmt)}`,overAmt:r2(res.cumValue-benchAmt)};if(!res.flags.length){flags.push(f)}res.flags.push(f)}
     }
     lineResults.push(res);
   });
   // project-level procurement budget
   const budget={procBudget:pca?.procBudget||0,orderedBefore:projectOrderedTotal(pid,opts.excludePoId),thisPo:r2(num(opts.thisPoValueInr))};
   budget.after=r2(budget.orderedBefore+budget.thisPo);
-  if(pca&&budget.after>budget.procBudget*tol+0.5)flags.push({type:'BUDGET',msg:`Total procurement ${inr(budget.after)} will exceed PCA procurement budget ${inr(budget.procBudget)}`,overAmt:r2(budget.after-budget.procBudget)});
+  if(pca&&budget.after>budget.procBudget*tol+0.5)flags.push({type:'BUDGET',msg:`Total procurement ${inr(budget.after)} will exceed PECS procurement budget ${inr(budget.procBudget)}`,overAmt:r2(budget.after-budget.procBudget)});
   const overAmt=r2(flags.filter(f=>f.type!=='BUDGET').reduce((s,f)=>s+num(f.overAmt),0));
   return{evaluatedAt:nowIso(),tolerancePct:num(settings.pcaTolerancePct),overPca:flags.length>0,flags,lines:lineResults,budget,overAmt};
 }
@@ -539,9 +487,9 @@ function evaluatePca(pid,lines,opts={}){
 // ═══════════════════════════════════════════════════════════════════════
 // ── ProMS in Google Drive (hybrid model) ───────────────────────────────
 // Each PMO project already has a Drive tree (created by DORBIT). ProMS keeps its documents in a
-// "ProMS" folder inside it:  NN. ProMS / 01. BOQ · 02. PCA · 03. Quotations / <CS no> · 04. Purchase Orders / <PO no>
+// "ProMS" folder inside it:  NN. ProMS / 01. PECS · 02. Sales PCA (reference) · 03. Quotations / <CS no> · 04. Purchase Orders / <PO no>
 // Firestore keeps only small state records; Drive keeps files + a JSON snapshot of every issued PO version.
-const PROMS_SUBS=[['boq','01. BOQ'],['pca','02. PCA'],['quotes','03. Quotations'],['po','04. Purchase Orders']];
+const PROMS_SUBS=[['pecs','01. PECS'],['pca','02. Sales PCA (reference)'],['quotes','03. Quotations'],['po','04. Purchase Orders']];
 const safeName=x=>String(x||'').replace(/[\\/:*?"<>|]+/g,'_').trim();
 async function driveCall(body){
   const r=await fetch(DRIVE_UPLOAD_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
@@ -602,7 +550,7 @@ function snapshotToDrive(pid,kind,sub,fileName,obj){
   return uploadToProms(blob,pid,kind,{sub,name:fileName,mime:'application/json',noRegister:true});
 }
 // compatibility wrapper
-function uploadToProcurementFolder(file,pid,tag){return uploadToProms(file,pid,/pca/i.test(tag||'')?'pca':/boq/i.test(tag||'')?'boq':'quotes',{tag})}
+function uploadToProcurementFolder(file,pid,tag){return uploadToProms(file,pid,/pca/i.test(tag||'')?'pca':/pecs/i.test(tag||'')?'pecs':'quotes',{tag})}
 // On release (or amendment release) file the PO in Drive: printable copy + JSON snapshot of this version
 async function archivePoToDrive(poId){
   const po=poData.find(x=>x.id===poId);if(!po||po.status!=='RELEASED')return;
@@ -614,16 +562,140 @@ async function archivePoToDrive(poId){
   await db.collection(PM_PO).doc(poId).update({driveFiles:firebase.firestore.FieldValue.arrayUnion(clean({amd,at:nowIso(),by:me(),print:a.webViewLink,snapshot:b.webViewLink,folder:folderUrl(pmProj(po.projectId).drive?.named?.['po__'+safeName(po.poNumber).replace(/\s+/g,'_')]||'')}))});
 }
 function readWorkbook(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>{try{res(XLSX.read(new Uint8Array(e.target.result),{type:'array',cellDates:true}))}catch(err){rej(err)}};r.onerror=rej;r.readAsArrayBuffer(file)})}
+// ═══════════════════════════════════════════════════════════════════════
+// PECS — Project Execution Cost Sheet (prepared by PMO: actual items, qty, rates, PO value → project GM)
+// The sales PCA is kept only as a read-only reference to measure estimating accuracy.
+// The ACTIVE PECS is the control baseline: pm.boq / pm.pca are DERIVED from it (see derivePecsBaseline)
+// so comparison, PO checks and budgets all run against PECS without a second data-entry step.
+// ═══════════════════════════════════════════════════════════════════════
+const UNASSIGNED='Items not assigned to a cost head';
+const COST_HEADS=['Management, Supervision & Administration Cost','OEM Domestic Procurement','OEM Import Procurement','Local 3rd Party Items','Accessories','Sub-Contract Services','Other Costs'];
+const NON_PO_HEADS=[COST_HEADS[0]];   // internal manpower is never procured through a PO
+// map any free-text head (PECS cell or sales PCA label / sheet name) to one canonical head; '' = not recognised
+function canonHead(t){
+  const s=norm(t).replace(/[^a-z0-9 ]+/g,' ').replace(/\s+/g,' ').trim();if(!s)return'';
+  if(/unassigned|not assigned/.test(s))return UNASSIGNED;
+  if(/mgmt|management|supervision|manpower|administration|admin cost/.test(s))return COST_HEADS[0];
+  if(/import/.test(s))return COST_HEADS[2];
+  if(/oem|domestic/.test(s))return COST_HEADS[1];
+  if(/local|3rd|third/.test(s))return COST_HEADS[3];
+  if(/accessor/.test(s))return COST_HEADS[4];
+  if(/sub ?contract/.test(s))return COST_HEADS[5];
+  if(/other/.test(s))return COST_HEADS[6];
+  return'';
+}
+const HEAD_ORDER=[...COST_HEADS,UNASSIGNED];
+function metaFromRows(rows){
+  const m={};
+  rows.slice(0,13).forEach(r=>{
+    const lab=cellText(r?.[0]).toLowerCase();const val=(r||[]).slice(1).find(v=>v!=null&&cellText(v)!=='');if(!lab||val==null)return;
+    if(/^project number|^project no/.test(lab))m.projectNumber=cellText(val);
+    else if(/^project name/.test(lab))m.projectName=cellText(val);
+    else if(/^client po no/.test(lab))m.clientPo=cellText(val);
+    else if(/^client po date/.test(lab))m.clientPoDate=val instanceof Date?val.toISOString().slice(0,10):cellText(val);
+    else if(/^client/.test(lab))m.client=cellText(val);
+    else if(/^po value/.test(lab))m.poValue=num(val);
+    else if(/^pecs version/.test(lab))m.sheetVersion=cellText(val);
+    else if(/^prepared by/.test(lab))m.preparedBy=cellText(val);
+  });
+  return m;
+}
+function parsePecsWorkbook(wb,fileName){
+  const name=wb.SheetNames.find(n=>/^pecs$/i.test(n.trim()))||wb.SheetNames.find(n=>/pecs/i.test(n)&&!/instruction/i.test(n));
+  if(!name)throw new Error('No sheet named “PECS” found — please use the ProMS PECS template');
+  const rows=sheetRows(wb.Sheets[name]);const meta=metaFromRows(rows);
+  let hi=-1;for(let i=0;i<Math.min(rows.length,40);i++){const t=(rows[i]||[]).map(c=>cellText(c).toLowerCase());if(t.some(x=>/^cost head/.test(x))&&t.some(x=>/description/.test(x))){hi=i;break}}
+  if(hi<0)throw new Error('Could not find the item header row (Cost head / Item description / Qty / Rate)');
+  const col={};(rows[hi]||[]).forEach((c,i)=>{const t=cellText(c).toLowerCase();
+    if(/^s\.?\s*no/.test(t))col.sno=i;else if(/^cost head/.test(t))col.head=i;else if(/description/.test(t))col.desc=i;else if(/^make/.test(t))col.make=i;
+    else if(/^part/.test(t))col.part=i;else if(/^hsn/.test(t))col.hsn=i;else if(/^unit$|^uom/.test(t))col.unit=i;else if(/^qty|^quantity/.test(t))col.qty=i;
+    else if(/^rate/.test(t))col.rate=i;else if(/^currency/.test(t))col.cur=i;else if(/^exch/.test(t))col.fx=i;else if(/^duty/.test(t))col.duty=i;
+    else if(/^amount/.test(t))col.amount=i;else if(/^remark/.test(t))col.rem=i});
+  if(col.desc==null||col.qty==null||col.rate==null)throw new Error('Template columns missing — need Item description, Qty and Rate (ex-GST)');
+  const items=[],warnings=[],seen={};
+  for(let i=hi+1;i<rows.length;i++){
+    const r=rows[i]||[];const desc=cellText(r[col.desc]);const qty=num(r[col.qty]),rate=num(r[col.rate]);
+    if(!desc&&!qty&&!rate)continue;
+    if(/^total/i.test(desc)||/^total/i.test(cellText(r[col.sno])))continue;
+    const fx=num(r[col.fx])||1,duty=num(r[col.duty]);
+    const amount=r2(qty*rate*fx*(1+duty/100));
+    const rawHead=col.head!=null?cellText(r[col.head]):'';let head=canonHead(rawHead);
+    if(rawHead&&!head)warnings.push(`Row ${i+1}: cost head “${rawHead}” is not a standard head — placed under “${UNASSIGNED}”`);
+    if(!head)head=UNASSIGNED;
+    if(!desc)warnings.push(`Row ${i+1}: amount ${inr(amount)} has no item description`);
+    const make=col.make!=null?cellText(r[col.make]):'',part=col.part!=null?cellText(r[col.part]):'';
+    let key=safeId(norm(desc+'|'+(part||make)).replace(/[^a-z0-9]+/g,'_')).slice(0,60)||'row'+(i+1);
+    seen[key]=(seen[key]||0)+1;if(seen[key]>1)key+='_'+seen[key];
+    items.push({key,sno:col.sno!=null?cellText(r[col.sno])||String(items.length+1):String(items.length+1),head,description:desc||'(no description)',make:make||part,part,hsn:col.hsn!=null?cellText(r[col.hsn]):'',
+      unit:col.unit!=null?cellText(r[col.unit])||'Nos':'Nos',qty,rate:r2(rate),currency:col.cur!=null?(cellText(r[col.cur])||'INR'):'INR',fxRate:fx,dutyPct:duty,
+      landedRate:r2(rate*fx*(1+duty/100)),baseRateInr:r2(rate*fx),amount,remarks:col.rem!=null?cellText(r[col.rem]):'',
+      procurable:!NON_PO_HEADS.includes(head)&&!NON_PROCURABLE_RX.test(desc)});
+    if(qty<=0&&desc)warnings.push(`Row ${i+1}: “${desc}” has no quantity`);
+    if(rate<=0&&desc)warnings.push(`Row ${i+1}: “${desc}” has no rate`);
+  }
+  return{fileName,meta,items,warnings,...pecsTotals(items,meta.poValue)};
+}
+function pecsTotals(items,poValue){
+  const byHead={};HEAD_ORDER.forEach(h=>byHead[h]={name:h,total:0,count:0});
+  items.forEach(i=>{const h=byHead[i.head]||(byHead[i.head]={name:i.head,total:0,count:0});h.total+=i.amount;h.count++});
+  const heads=HEAD_ORDER.map(h=>({...byHead[h],total:r2(byHead[h].total)}));
+  const totalCost=r2(items.reduce((s,i)=>s+i.amount,0)),po=r2(num(poValue));
+  const gm=r2(po-totalCost);
+  return{heads,totalCost,poValue:po,gm,gmPct:po>0?gm/po:null,unassignedTotal:heads.find(h=>h.name===UNASSIGNED).total,unassignedCount:heads.find(h=>h.name===UNASSIGNED).count};
+}
+// ── sales PCA reference: totals per canonical head, selling price, GM ──
+function salesPcaView(sp){
+  if(!sp)return null;
+  const byHead={};HEAD_ORDER.forEach(h=>byHead[h]=0);
+  (sp.heads||[]).forEach(h=>{const c=canonHead(h.label||h.name)||UNASSIGNED;byHead[c]=(byHead[c]||0)+num(h.summaryTotal??h.total)});
+  const total=r2(Object.values(byHead).reduce((a,b)=>a+b,0));
+  const cost=num(sp.meta?.totalInputCost)||total;
+  const sell=num(sp.meta?.sellingPrice);
+  let gmPct=sp.meta?.gpPct!=null&&sp.meta.gpPct!==0?num(sp.meta.gpPct):(sell>0?(sell-cost)/sell:null);
+  if(gmPct!=null&&gmPct>1.5)gmPct=gmPct/100;
+  return{byHead,cost:r2(cost),sell,gmPct,gm:sell>0?r2(sell-cost):null,fileName:sp.fileName};
+}
+// head-wise PECS vs sales PCA
+function pecsVsPca(pecs,sp){
+  const v=salesPcaView(sp);if(!pecs)return null;
+  const rows=HEAD_ORDER.map(h=>{const a=pecs.heads.find(x=>x.name===h)?.total||0,p=v?.byHead[h]||0;return{head:h,pecs:a,pca:p,diff:r2(a-p),pct:p?(a-p)/p:null}}).filter(r=>r.pecs||r.pca||r.head!==UNASSIGNED);
+  const gmDrop=!!(v&&v.gmPct!=null&&pecs.gmPct!=null&&r2(pecs.gmPct*100)<r2(v.gmPct*100));
+  return{rows,v,gmDrop,gmDelta:v&&v.gmPct!=null&&pecs.gmPct!=null?pecs.gmPct-v.gmPct:null,
+    costDiff:v?r2(pecs.totalCost-v.cost):null,sellDiff:v&&v.sell?r2(pecs.poValue-v.sell):null};
+}
+// ── baseline for the PO/comparison engine, derived from the ACTIVE PECS ──
+function derivePecsBaseline(pecs){
+  if(!pecs)return{boq:[],pca:null};
+  const items=pecs.items.map(i=>({...i,sheet:i.head}));
+  const heads=pecs.heads.filter(h=>h.count||h.total).map(h=>({name:h.name,label:h.name,total:h.total,summaryTotal:h.total,procurable:!NON_PO_HEADS.includes(h.name)}));
+  const procBudget=r2(items.filter(i=>i.procurable).reduce((s,i)=>s+i.amount,0));
+  const boq=items.filter(i=>i.procurable).map(i=>({id:i.key,sno:i.sno,description:i.description,make:i.make,unit:i.unit,qty:i.qty,category:i.head,remarks:i.remarks,pcaKey:i.key,matchMode:'pecs',matchScore:1}));
+  return{boq,pca:{fileName:pecs.fileName,meta:{gpPct:pecs.gmPct,sellingPrice:pecs.poValue,totalInputCost:pecs.totalCost,ref:pecs.meta?.clientPo||'',customer:pecs.meta?.client||''},
+    heads,items,procBudget,version:pecs.version,uploadedAt:pecs.activatedAt||pecs.uploadedAt,uploadedBy:pecs.uploadedBy,uploadedByName:pecs.uploadedByName,driveLink:pecs.driveLink}};
+}
+// what changes between two PECS versions (item / qty / rate), and the effect on already-placed POs
+function diffPecs(oldP,newP,pid){
+  const o=Object.fromEntries((oldP?.items||[]).map(i=>[i.key,i])),n=Object.fromEntries(newP.items.map(i=>[i.key,i]));
+  const added=newP.items.filter(i=>!o[i.key]),removed=(oldP?.items||[]).filter(i=>!n[i.key]);
+  const changed=newP.items.filter(i=>o[i.key]&&(num(o[i.key].qty)!==num(i.qty)||num(o[i.key].landedRate)!==num(i.landedRate)||o[i.key].head!==i.head)).map(i=>({new:i,old:o[i.key]}));
+  const ord=pid?orderedByPca(pid):{};const conflicts=[];
+  removed.forEach(i=>{if(ord[i.key]?.qty)conflicts.push(`“${i.description}” was removed but ${fmt(ord[i.key].qty,2)} ${i.unit} is already on POs`)});
+  changed.forEach(c=>{const q=ord[c.new.key]?.qty||0;if(q>c.new.qty+1e-9)conflicts.push(`“${c.new.description}”: qty reduced to ${fmt(c.new.qty,2)} but ${fmt(q,2)} is already ordered`)});
+  return{added,removed,changed,conflicts};
+}
+function pecsTemplateHint(){return'Download the PECS template, fill project details, PO value and one row per item with its cost head, then upload.'}
+const PECS_TEMPLATE_B64='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bL3d35Iet52n+fO9ilrGxEa3tsdi/s/UyppoJYAE37TbHePu6Yg9K4tFqcIki10sSbaP9iL2CudKJpEvfqUCnkwDu2HjwDL1MFFvvYVvUeRHHe6v/9ufPry/+enu8fP9w8dfv6p+9frVzd3H7x7e3n/8/tev/v3fzH8dX918frr9+Pb2/cPHu1+/+vPd51f/7Zv/7eufHx7/+PmHu7unm+0DfPz861c/PD19+urLLz9/98Pdh9vPv3r4dPdx+5l3D48fbp+2v338/svPnx7vbt/uhz68/7J+/br/8sPt/cdX14/w1WPOx3h49+7+uzv18N2PH+4+Pl0/yOPd+9un7dP//MP9p8/y0f70NuvjvX28/Xl7q/L5vPgU1fVnnj9e1eLjfbj/7vHh88O7p1999/DBf2p8l9OXU/A+//RY///7SFW3vdWf7t1N1fLBPnyX8y4/3D7+8cdP/3X72J+2r9Qf7t/fP/15f8Ovvvl6//j/+njz7v79093jbx/ebpf87vb957vt5z7dfn/3+7unf/+0//zTvz386xbkp7/85usv/eFvvn57v92H+8xuHu/e/frVP1df/UtT9e6Z/ZH/cX/38+cXP775/MPDz2b7DH98f/tZPuAel8f7t7+5/3i31afHH3387w8/zw/v7fbV2Ib68if+77vtyybh8f77H7bP8Td3756eP+TT7R9+f/f+7runu7fBy/zux6f326v8/s8f/vDw/vkjvL17d/vj+yf3OWyv9/Ao/aftU/71q4/uK/p++5gPn9xrzHfv37t3+urmO/fsm+0F+vbVzV8eHj78/rvb99vXqXr9+sXf/8t+PK7uK/qb2z8//Lh/XfzPum+uPzw8/NEl93Ff73fx8e7mT7//tN2dCzd/9j+sWnxG3aub2++e7n/aPrj7lv3Dw9PTwwf3wP6t/ORu8PHhL3cf9+vZvzru4j7tD/sPJR/hlzf5y99fP6Obz//pr/row7x8zf9vH+nL55G8/LGMx+yr3ubor2q7pv+4f/v0w69fjb/qh6kfh+75GrfV2Du3ie2LtNW/bFuRv/dLeLiu4Dd3P929357eP5mXbfvo1y/+l8GLf/P1duOf97+6u39/++nzi3l99+Pn7a37z+q6nx/u3769+3j4svtrfrj90/Y5bv99/3H/789Pf973sy3h+mH276S/7cvV/uXqg5dr2r/96zX+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';
+function downloadPecsTemplate(){const bin=atob(PECS_TEMPLATE_B64),u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);downloadBlob('ProMS_PECS_Template.xlsx',new Blob([u],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}))}
 
 // ═══════════════════════════════════════════════════════════════════════
 // PERSISTENCE HELPERS
 // ═══════════════════════════════════════════════════════════════════════
 async function savePm(pid,patch,action){
   const p=projectById(pid);patch={...patch};
-  // BOQ and PCA are stored as their own documents (each well under Firestore's 1 MiB limit)
+  // Sales PCA (reference) and PECS (active + pending versions) are separate documents, each well under Firestore's 1 MiB limit
   const heavy=[];
-  if('boq' in patch){heavy.push(db.collection(PM_DATA).doc(pid+'_boq').set(clean({projectId:pid,kind:'boq',items:patch.boq||[],updatedAt:nowIso(),updatedBy:me()})));delete patch.boq}
-  if('pca' in patch){heavy.push(db.collection(PM_DATA).doc(pid+'_pca').set(clean({projectId:pid,kind:'pca',pca:patch.pca||null,updatedAt:nowIso(),updatedBy:me()})));delete patch.pca}
+  if('salesPca' in patch){heavy.push(db.collection(PM_DATA).doc(pid+'_pca').set(clean({projectId:pid,kind:'pca',pca:patch.salesPca||null,updatedAt:nowIso(),updatedBy:me()})));delete patch.salesPca}
+  if('pecsDoc' in patch){heavy.push(db.collection(PM_DATA).doc(pid+'_pecs').set(clean({projectId:pid,kind:'pecs',active:patch.pecsDoc.active||null,pending:patch.pecsDoc.pending||null,updatedAt:nowIso(),updatedBy:me()})));delete patch.pecsDoc}
   const data={...patch,projectId:pid,projectNumber:p?.number||'',projectName:p?.name||'',updatedAt:nowIso(),updatedBy:me()};
   if(action)data.audit=firebase.firestore.FieldValue.arrayUnion(audit(null,action));
   await Promise.all([...heavy,db.collection(PM_PROJ).doc(pid).set(data,{merge:true})]);
@@ -633,7 +705,7 @@ function statusBadge(st,map){
   const cls={PENDING_PRATIM:'s-pratim',PENDING_UPDESH:'s-updesh',AMEND_PRATIM:'s-pratim',AMEND_UPDESH:'s-updesh',RELEASED:'s-ok',REJECTED:'s-rej',CANCELLED:'s-open',OPEN:'s-open',FINALIZED:'s-pratim',PO_RAISED:'s-ok'}[st]||'s-open';
   return`<span class="badge ${cls}">${esc((map||PO_STATUS)[st]||CS_STATUS[st]||st)}</span>`;
 }
-function pcaFlagBadge(po){return po.pcaCheck?.overPca?`<span class="badge s-rej" title="${esc((po.pcaCheck.flags||[]).map(f=>f.msg).join('\n'))}"><i class="ti ti-alert-triangle"></i>Over PCA</span>`:`<span class="badge s-ok"><i class="ti ti-circle-check"></i>Within PCA</span>`}
+function pcaFlagBadge(po){return po.pcaCheck?.overPca?`<span class="badge s-rej" title="${esc((po.pcaCheck.flags||[]).map(f=>f.msg).join('\n'))}"><i class="ti ti-alert-triangle"></i>Over PECS</span>`:`<span class="badge s-ok"><i class="ti ti-circle-check"></i>Within PECS</span>`}
 function myApprovalQueue(){
   return poData.filter(p=>((p.status==='PENDING_PRATIM'||p.status==='AMEND_PRATIM')&&canApproveL1())||((p.status==='PENDING_UPDESH'||p.status==='AMEND_UPDESH')&&canApproveL2()));
 }
@@ -651,27 +723,27 @@ function renderDashboard(){
   const pending=poData.filter(p=>['PENDING_PRATIM','PENDING_UPDESH','AMEND_PRATIM','AMEND_UPDESH'].includes(p.status));
   const overPca=poData.filter(p=>ACTIVE_PO.includes(p.status)&&p.pcaCheck?.overPca);
   const openCs=csData.filter(c=>c.status==='OPEN'||c.status==='FINALIZED');
-  const noPca=pids.filter(id=>!pmData[id]?.pca);
-  const queue=myApprovalQueue();
+  const noPca=pids.filter(id=>!pmData[id]?.pecs);const pecsWait=pids.filter(id=>pmData[id]?.pecsPending);
+  const queue=myApprovalQueue().concat(isUpdesh()?pecsWait.map(id=>({pecs:id})):[]);
   const rows=pids.map(id=>{
     const p=projectById(id),pm=pmProj(id),bud=pm.pca?.procBudget||0,ord=projectOrderedTotal(id),pct=bud?ord/bud*100:0;
     const npo=poData.filter(x=>x.projectId===id&&ACTIVE_PO.includes(x.status)).length,nover=poData.filter(x=>x.projectId===id&&ACTIVE_PO.includes(x.status)&&x.pcaCheck?.overPca).length;
     return`<tr onclick="openProject('${id}')" style="cursor:pointer"><td><b>${esc(p.number||'')}</b><div class="muted">${esc(p.name||'')}</div></td><td>${esc(projClient(p))}</td>
-      <td class="num">${pm.pca?inr(bud):'<span class="flag">No PCA</span>'}</td><td class="num">${inr(ord)}</td>
+      <td class="num">${pm.pca?inr(bud):'<span class="flag">No PECS</span>'}</td><td class="num">${inr(ord)}</td>
       <td><div class="bar ${pct>100?'over':''}"><span style="width:${Math.min(100,pct)}%"></span></div><div class="muted">${bud?fmt(pct,1)+'%':'-'}</div></td>
-      <td class="num">${(pm.boq||[]).length}</td><td class="num">${npo}</td><td>${nover?`<span class="flag">${nover} over PCA</span>`:'<span class="okc">OK</span>'}</td></tr>`}).join('');
+      <td class="num">${(pm.boq||[]).length}</td><td class="num">${npo}</td><td>${nover?`<span class="flag">${nover} over PECS</span>`:'<span class="okc">OK</span>'}</td></tr>`}).join('');
   el('tab-dashboard').innerHTML=`
-  ${queue.length?`<div class="notice warn"><i class="ti ti-bell-ringing"></i><div><b>${queue.length} PO${queue.length>1?'s':''} awaiting your approval.</b> <a href="#" onclick="switchTab('approvals');return false">Open approvals →</a></div></div>`:''}
+  ${queue.length?`<div class="notice warn"><i class="ti ti-bell-ringing"></i><div><b>${queue.length} approval${queue.length>1?"s":""} awaiting you.</b> <a href="#" onclick="switchTab('approvals');return false">Open approvals →</a></div></div>`:''}
   <div class="stats">
     <div class="stat"><div class="stat-icon"><i class="ti ti-building-factory-2"></i></div><div><div class="stat-value">${pids.length}</div><div class="stat-label">Projects in ProMS</div></div></div>
-    <div class="stat ${noPca.length?'alert':''}"><div class="stat-icon"><i class="ti ti-file-alert"></i></div><div><div class="stat-value">${noPca.length}</div><div class="stat-label">Projects without PCA</div></div></div>
+    <div class="stat ${noPca.length?'alert':''}"><div class="stat-icon"><i class="ti ti-file-alert"></i></div><div><div class="stat-value">${noPca.length}</div><div class="stat-label">Projects without active PECS</div></div></div>
     <div class="stat"><div class="stat-icon"><i class="ti ti-scale"></i></div><div><div class="stat-value">${openCs.length}</div><div class="stat-label">Open comparisons</div></div></div>
     <div class="stat ${pending.length?'alert':''}"><div class="stat-icon"><i class="ti ti-hourglass"></i></div><div><div class="stat-value">${pending.length}</div><div class="stat-label">POs pending approval</div></div></div>
     <div class="stat"><div class="stat-icon"><i class="ti ti-file-check"></i></div><div><div class="stat-value">${inr(released.reduce((s,p)=>s+poInrValue(p),0))}</div><div class="stat-label">Released PO value (ex-GST)</div></div></div>
-    <div class="stat ${overPca.length?'alert':''}"><div class="stat-icon"><i class="ti ti-alert-triangle"></i></div><div><div class="stat-value">${overPca.length}</div><div class="stat-label">Active POs over PCA</div></div></div>
+    <div class="stat ${overPca.length?'alert':''}"><div class="stat-icon"><i class="ti ti-alert-triangle"></i></div><div><div class="stat-value">${overPca.length}</div><div class="stat-label">Active POs over PECS</div></div></div>
   </div>
-  <div class="card"><div class="card-header"><span><i class="ti ti-chart-bar"></i> Procurement vs PCA budget (ex-GST)</span><button class="btn sm primary" onclick="switchTab('project')"><i class="ti ti-plus"></i>Start / open a project</button></div>
-    ${rows?`<div class="table-wrap"><table><thead><tr><th>Project</th><th>Client</th><th class="num">PCA procurement budget</th><th class="num">Ordered (active POs)</th><th>Consumed</th><th class="num">BOQ lines</th><th class="num">POs</th><th>PCA status</th></tr></thead><tbody>${rows}</tbody></table></div>`:'<div class="empty">No project has been set up in ProMS yet. Open <b>Project Procurement</b>, pick a PMO project and upload its BOQ and PCA.</div>'}
+  <div class="card"><div class="card-header"><span><i class="ti ti-chart-bar"></i> Procurement vs PECS budget (ex-GST)</span><button class="btn sm primary" onclick="switchTab('project')"><i class="ti ti-plus"></i>Start / open a project</button></div>
+    ${rows?`<div class="table-wrap"><table><thead><tr><th>Project</th><th>Client</th><th class="num">PECS procurement budget</th><th class="num">Ordered (active POs)</th><th>Consumed</th><th class="num">PECS items</th><th class="num">POs</th><th>PECS status</th></tr></thead><tbody>${rows}</tbody></table></div>`:'<div class="empty">No project has been set up in ProMS yet. Open <b>Project Procurement</b>, pick a PMO project and upload the sales PCA (reference) and the PECS.</div>'}
   </div>
   <div class="card"><div class="card-header"><span><i class="ti ti-clock"></i> Recent POs</span></div>${poTable(poData.slice(0,8))}</div>`;
 }
@@ -694,21 +766,20 @@ function renderProject(){
   if(!p){el('tab-project').innerHTML=head;return}
   const pm=pmProj(p.id);
   const cs=csData.filter(c=>c.projectId===p.id),pos=poData.filter(x=>x.projectId===p.id);
-  const tabs=[['overview','ti-info-circle','Overview'],['boq','ti-list-details','BOQ ('+(pm.boq||[]).length+')'],['pca','ti-calculator','PCA'+(pm.pca?'':' ⚠')],['quotes','ti-scale','Quotations ('+cs.length+')'],['pos','ti-file-invoice','POs ('+pos.length+')']];
+  const tabs=[['overview','ti-info-circle','Overview'],['pecs','ti-table-column','PECS'+(pm.pecs?' v'+pm.pecs.version:' ⚠')+(pm.pecsPending?' ⏳':'')],['quotes','ti-scale','Quotations ('+cs.length+')'],['pos','ti-file-invoice','POs ('+pos.length+')']];
   let body='';
   if(projSubTab==='overview')body=projOverview(p,pm);
-  else if(projSubTab==='boq')body=projBoq(p,pm);
-  else if(projSubTab==='pca')body=projPca(p,pm);
+  else if(projSubTab==='pecs')body=projPecs(p,pm);
   else if(projSubTab==='quotes')body=projQuotes(p,pm,cs);
   else body=`<div class="card"><div class="card-header"><span>Purchase orders — ${esc(p.number)}</span></div>${poTable(pos)}</div>`;
   el('tab-project').innerHTML=head+`<div class="subtabs">${tabs.map(t=>`<button class="subtab ${projSubTab===t[0]?'active':''}" onclick="projSubTab='${t[0]}';renderProject()"><i class="ti ${t[1]}"></i>${t[2]}</button>`).join('')}</div>`+body;
 }
 
 function projOverview(p,pm){
-  const bud=pm.pca?.procBudget||0,ord=projectOrderedTotal(p.id),bal=r2(bud-ord);
+  const bud=pm.pca?.procBudget||0,ord=projectOrderedTotal(p.id),bal=r2(bud-ord),gmv=pm.pecs?pecsVsPca(pm.pecs,pm.salesPca):null;
   const steps=[
-    [!!(pm.boq||[]).length,'BOQ uploaded','boq'],
-    [!!pm.pca,'PCA uploaded','pca'],
+    [!!pm.salesPca,'Sales PCA (reference)','pecs'],
+    [!!pm.pecs,'PECS active','pecs'],
     [csData.some(c=>c.projectId===p.id),'Quotations recorded','quotes'],
     [poData.some(x=>x.projectId===p.id&&x.status==='RELEASED'),'PO released','pos']
   ];
@@ -716,166 +787,24 @@ function projOverview(p,pm){
     const ord=r2(poData.filter(x=>x.projectId===p.id&&ACTIVE_PO.includes(x.status)).reduce((s,po)=>s+(po.lines||[]).filter(l=>pcaItem(p.id,l.pcaKey)?.head===h.name).reduce((a,l)=>a+num(l.qty)*lineNetRate(l)*(num(po.fxRate)||1),0),0));
     const t=h.summaryTotal??h.total;
     return`<tr class="${h.procurable&&ord>t+0.5?'over':''}"><td>${esc(h.label||h.name)}</td><td class="num">${inr(t)}</td><td class="num">${h.procurable?inr(ord):'<span class="muted">not via PO</span>'}</td><td class="num">${h.procurable?inr(t-ord):'-'}</td></tr>`}).join('');
-  return driveCard(p,pm)+`<div class="stats">
-    <div class="stat"><div class="stat-icon"><i class="ti ti-calculator"></i></div><div><div class="stat-value">${pm.pca?inr(bud):'—'}</div><div class="stat-label">PCA procurement budget</div></div></div>
+  return driveCard(p,pm)+(pm.pecsPending?`<div class="notice warn"><i class="ti ti-hourglass"></i><div><b>PECS v${pm.pecsPending.version} is awaiting Updesh's approval</b> (gross margin below sales PCA). ${pm.pecs?'Until approved, POs are checked against PECS v'+pm.pecs.version+'.':'POs cannot be raised until a PECS is active.'} <a href="#" onclick="projSubTab='pecs';renderProject();return false">Open PECS →</a></div></div>`:'')+`<div class="stats">
+    <div class="stat"><div class="stat-icon"><i class="ti ti-calculator"></i></div><div><div class="stat-value">${pm.pca?inr(bud):'—'}</div><div class="stat-label">PECS procurement budget</div></div></div>
     <div class="stat"><div class="stat-icon"><i class="ti ti-shopping-cart"></i></div><div><div class="stat-value">${inr(ord)}</div><div class="stat-label">Ordered (active POs)</div></div></div>
-    <div class="stat ${bal<0?'alert':''}"><div class="stat-icon"><i class="ti ti-wallet"></i></div><div><div class="stat-value">${pm.pca?inr(bal):'—'}</div><div class="stat-label">Balance vs PCA</div></div></div>
-    <div class="stat"><div class="stat-icon"><i class="ti ti-percentage"></i></div><div><div class="stat-value">${pm.pca?.meta?.gpPct!=null?fmt(pm.pca.meta.gpPct*100,1)+'%':'—'}</div><div class="stat-label">PCA GP margin</div></div></div>
+    <div class="stat ${bal<0?'alert':''}"><div class="stat-icon"><i class="ti ti-wallet"></i></div><div><div class="stat-value">${pm.pca?inr(bal):'—'}</div><div class="stat-label">Balance vs PECS</div></div></div>
+    <div class="stat ${gmv?.gmDrop?'alert':''}"><div class="stat-icon"><i class="ti ti-percentage"></i></div><div><div class="stat-value">${pm.pecs?.gmPct!=null?fmt(pm.pecs.gmPct*100,1)+'%':'—'}</div><div class="stat-label">PECS gross margin${gmv?.v?.gmPct!=null?' (sales PCA '+fmt(gmv.v.gmPct*100,1)+'%)':''}</div></div></div>
   </div>
   <div class="card"><div class="card-header"><span>Procurement workflow</span></div>
     <div class="btn-row">${steps.map((s,i)=>`<button class="btn ${s[0]?'ok':''}" onclick="projSubTab='${s[2]}';renderProject()"><i class="ti ${s[0]?'ti-circle-check':'ti-circle-dashed'}"></i>${i+1}. ${s[1]}</button>`).join('<i class="ti ti-chevron-right muted"></i>')}</div>
   </div>
-  ${heads?`<div class="card"><div class="card-header"><span>PCA cost heads vs ordered (ex-GST, ₹)</span><span class="muted">PCA: ${esc(pm.pca.fileName||'')} · v${pm.pca.version||1}</span></div><div class="table-wrap"><table><thead><tr><th>Cost head</th><th class="num">PCA</th><th class="num">Ordered</th><th class="num">Balance</th></tr></thead><tbody>${heads}</tbody></table></div></div>`:''}
+  ${heads?`<div class="card"><div class="card-header"><span>PECS cost heads vs ordered (ex-GST, ₹)</span><span class="muted">PECS: ${esc(pm.pca.fileName||'')} · v${pm.pca.version||1}</span></div><div class="table-wrap"><table><thead><tr><th>Cost head</th><th class="num">PECS</th><th class="num">Ordered</th><th class="num">Balance</th></tr></thead><tbody>${heads}</tbody></table></div></div>`:''}
   <div class="card"><div class="card-header"><span>Activity log</span></div>${auditList(pm.audit)}</div>`;
 }
 function auditList(a){const list=(a||[]).slice().sort((x,y)=>String(y.time).localeCompare(String(x.time)));return list.length?list.slice(0,60).map(x=>`<div class="audit-row"><span class="muted">${fmtDateTime(x.time)}</span><b>${esc(x.actor)}</b><span>${esc(x.action)}</span></div>`).join(''):'<div class="empty">No activity yet</div>'}
 
-// ── BOQ ────────────────────────────────────────────────────────────────
-function projBoq(p,pm){
-  const boq=pm.boq||[],pca=pm.pca,ordered=orderedByBoq(p.id);
-  const opts=pca?pca.items.filter(i=>i.procurable):[];
-  const rows=boq.map((b,i)=>{
-    const o=ordered[b.id]||0,bal=r2(num(b.qty)-o),pi=b.pcaKey?pcaItem(p.id,b.pcaKey):null;
-    return`<tr><td>${esc(b.sno||i+1)}</td><td><b>${esc(b.description)}</b>${b.remarks?`<div class="muted">${esc(b.remarks)}</div>`:''}</td><td>${esc(b.make)}</td><td>${esc(b.unit)}</td><td class="num">${fmt(b.qty,2)}</td><td class="num">${fmt(o,2)}</td><td class="num ${bal<0?'flag':''}">${fmt(bal,2)}</td>
-      <td style="min-width:260px">${pca?`<select onchange="setBoqLink('${b.id}',this.value)" ${isBuyer()?'':'disabled'}><option value="">— Not in PCA —</option>${opts.map(o=>`<option value="${o.key}" ${o.key===b.pcaKey?'selected':''}>[${esc(o.head)}] ${esc(o.description)}${o.make?' · '+esc(o.make):''} — ${fmt(o.qty)} @ ${inr2(o.rate)}</option>`).join('')}</select>${b.matchMode==='auto'&&pi?`<div class="muted">auto-matched (${fmt(b.matchScore*100)}%)</div>`:''}`:'<span class="muted">Upload PCA to link</span>'}</td>
-      <td>${isBuyer()&&!o?`<button class="btn sm bad" title="Delete line" onclick="deleteBoqLine('${b.id}')"><i class="ti ti-trash"></i></button>`:''}</td></tr>`}).join('');
-  const unlinked=pca?boq.filter(b=>!b.pcaKey).length:0;
-  return`<div class="card"><div class="card-header"><span>Bill of Quantities — items to be procured</span>
-    <div class="btn-row">${isBuyer()?`<button class="btn sm" onclick="downloadBoqTemplate()"><i class="ti ti-download"></i>Template</button>
-      <button class="btn sm primary" onclick="el('fileBoq').value='';el('fileBoq').click()"><i class="ti ti-upload"></i>Upload BOQ Excel</button>
-      <button class="btn sm" onclick="addBoqLineModal()"><i class="ti ti-plus"></i>Add line</button>
-      ${pca&&boq.length?`<button class="btn sm" onclick="rematchBoq()"><i class="ti ti-link"></i>Auto-link to PCA</button>`:''}`:''}
-      ${boq.length?`<button class="btn sm" onclick="exportBoq('${p.id}')"><i class="ti ti-file-spreadsheet"></i>Export</button>`:''}</div></div>
-    ${unlinked?`<div class="notice warn"><i class="ti ti-unlink"></i><div><b>${unlinked} BOQ line(s) are not linked to any PCA item.</b> Any PO for these lines will be flagged as “not in PCA” and routed to Updesh.</div></div>`:''}
-    ${rows?`<div class="table-wrap"><table><thead><tr><th>#</th><th>Description</th><th>Make / Model</th><th>Unit</th><th class="num">BOQ Qty</th><th class="num">Ordered</th><th class="num">Balance</th><th>Linked PCA item</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`:'<div class="empty">No BOQ yet. Download the template, fill item list (S.No, Description, Make/Model, Unit, Qty, Category, Remarks) and upload.</div>'}
-  </div>`;
-}
-async function handleBoqFile(input){
-  const f=input.files[0];if(!f||!activeProjectId)return;
-  try{
-    const wb=await readWorkbook(f);const items=parseBoqWorkbook(wb);
-    if(!items.length)return showToast('No item rows found. Need a header row with Description and Qty columns.','error');
-    const pm=pmProj(activeProjectId),existing=pm.boq||[];
-    let mode='replace';
-    if(existing.length){
-      const ordered=orderedByBoq(activeProjectId);const locked=existing.filter(b=>ordered[b.id]);
-      const ans=prompt(`BOQ already has ${existing.length} lines${locked.length?` (${locked.length} already ordered — these are always kept)`:''}.\nType A to APPEND the ${items.length} new lines, or R to REPLACE un-ordered lines:`,'A');
-      if(!ans)return;mode=/^r/i.test(ans)?'replace':'append';
-    }
-    let fresh=items.map(it=>({...it,id:uid('b')}));
-    fresh=autoMatch(fresh,pm.pca);
-    let boq;
-    if(mode==='append')boq=[...existing,...fresh];
-    else{const ordered=orderedByBoq(activeProjectId);boq=[...existing.filter(b=>ordered[b.id]),...fresh]}
-    showLoad('Saving BOQ…');
-    await savePm(activeProjectId,{boq,boqFile:f.name,boqUploadedAt:nowIso()},`BOQ ${mode==='append'?'appended':'uploaded'}: ${items.length} lines from ${f.name}`);
-    uploadToProms(f,activeProjectId,'boq',{tag:'BOQ'}).catch(e=>console.warn('BOQ drive copy skipped:',e.message));
-    hideLoad();projSubTab='boq';renderProject();showToast(`${items.length} BOQ lines saved`);
-  }catch(e){hideLoad();console.error(e);showToast('BOQ upload failed: '+e.message,'error')}
-}
-function addBoqLineModal(){
-  openModal(modalHeader('Add BOQ line')+`<div class="dialog-body"><div class="form-row"><div class="form-group" style="grid-column:1/-1"><label class="req">Description</label><input id="nbDesc"></div></div>
-    <div class="form-row"><div class="form-group"><label>Make / Model</label><input id="nbMake"></div><div class="form-group"><label>Unit</label><input id="nbUnit" value="Nos"></div><div class="form-group"><label class="req">Qty</label><input id="nbQty" type="number" step="any"></div></div>
-    <div class="form-row"><div class="form-group"><label>Category</label><input id="nbCat"></div><div class="form-group"><label>Remarks</label><input id="nbRem"></div></div>
-    <div class="btn-row" style="justify-content:flex-end"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveBoqLine()"><i class="ti ti-device-floppy"></i>Add</button></div></div>`,true);
-}
-async function saveBoqLine(){
-  const d=g('nbDesc'),q=num(g('nbQty'));if(!d||q<=0)return showToast('Description and a positive qty are required','error');
-  const pm=pmProj(activeProjectId);const boq=pm.boq||[];
-  const line=autoMatch([{id:uid('b'),sno:String(boq.length+1),description:d,make:g('nbMake'),unit:g('nbUnit')||'Nos',qty:q,category:g('nbCat'),remarks:g('nbRem')}],pm.pca)[0];
-  await savePm(activeProjectId,{boq:[...boq,line]},`BOQ line added: ${d} × ${q}`);closeModal();showToast('Line added');
-}
-async function deleteBoqLine(id){
-  const pm=pmProj(activeProjectId);const b=(pm.boq||[]).find(x=>x.id===id);if(!b)return;
-  if(orderedByBoq(activeProjectId)[id])return showToast('Line already has POs — cannot delete','error');
-  if(csData.some(c=>c.projectId===activeProjectId&&c.status!=='CANCELLED'&&(c.items||[]).some(i=>i.boqId===id)))return showToast('Line is used in an open comparison — cancel that first','error');
-  if(!confirm('Delete BOQ line “'+b.description+'”?'))return;
-  await savePm(activeProjectId,{boq:pm.boq.filter(x=>x.id!==id)},`BOQ line deleted: ${b.description}`);
-}
-async function setBoqLink(id,key){
-  const pm=pmProj(activeProjectId);const boq=(pm.boq||[]).map(b=>b.id===id?{...b,pcaKey:key,matchMode:key?'manual':'',matchScore:key?1:0}:b);
-  const b=boq.find(x=>x.id===id),pi=key?pcaItem(activeProjectId,key):null;
-  await savePm(activeProjectId,{boq},`BOQ “${b?.description}” linked to PCA ${pi?`[${pi.head}] ${pi.description}`:'— none —'}`);
-}
-async function rematchBoq(){
-  const pm=pmProj(activeProjectId);if(!pm.pca)return;
-  const over=confirm('Re-run auto-link for ALL lines?\nOK = overwrite existing links · Cancel = only fill unlinked lines');
-  const boq=autoMatch(pm.boq||[],pm.pca,over).map(b=>b.matchMode==='manual'&&!over?b:b);
-  await savePm(activeProjectId,{boq},`BOQ auto-linked to PCA (${over?'overwrite':'fill blanks'}) — ${boq.filter(b=>b.pcaKey).length}/${boq.length} linked`);showToast('Auto-link done');
-}
-function exportBoq(pid){
-  const pm=pmProj(pid),ord=orderedByBoq(pid);
-  const aoa=[['S.No','Description','Make/Model','Unit','BOQ Qty','Ordered','Balance','PCA Head','PCA Item','PCA Qty','PCA Rate']];
-  (pm.boq||[]).forEach(b=>{const pi=pcaItem(pid,b.pcaKey);aoa.push([b.sno,b.description,b.make,b.unit,num(b.qty),ord[b.id]||0,r2(num(b.qty)-(ord[b.id]||0)),pi?.head||'',pi?.description||'',pi?.qty??'',pi?.rate??''])});
-  const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(aoa),'BOQ');
-  downloadBlob(`BOQ_${safeId(projectById(pid)?.number)}.xlsx`,new Blob([XLSX.write(wb,{type:'array',bookType:'xlsx'})]));
-}
-
-// ── PCA ────────────────────────────────────────────────────────────────
-function projPca(p,pm){
-  const pca=pm.pca;
-  const canUpload=pca?(canReplacePca()||(isBuyer()&&!poData.some(x=>x.projectId===p.id&&ACTIVE_PO.includes(x.status)))):isBuyer();
-  const ordered=orderedByPca(p.id);
-  const hdr=`<div class="card-header"><span>Project Cost Analysis (PCA) baseline</span><div class="btn-row">
-    ${canUpload?`<button class="btn sm primary" onclick="el('filePca').value='';el('filePca').click()"><i class="ti ti-upload"></i>${pca?'Replace PCA (new version)':'Upload PCA Excel'}</button>`:pca?'<span class="muted">PCA is locked once POs exist — only Pratim/Updesh can replace it</span>':''}
-    ${pca?.driveLink?`<a class="btn sm" target="_blank" href="${esc(pca.driveLink)}"><i class="ti ti-brand-google-drive"></i>Original file</a>`:''}</div></div>`;
-  if(!pca)return`<div class="card">${hdr}<div class="empty">No PCA uploaded. Upload the approved DQAP PCA workbook (Summary + OEM Domestic / OEM Import / Local 3rd Party / Accessories / Sub Contract / Mgmt Services / Other Costs). Every PO for this project is checked against it.</div></div>`;
-  const m=pca.meta||{};
-  const rows=pca.items.map(i=>{const o=ordered[i.key]||{qty:0,value:0};const over=i.procurable&&(o.qty>i.qty+1e-9||o.value>i.amount+0.5);
-    return`<tr class="${over?'over':''}"><td><span class="pill">${esc(i.head)}</span></td><td>${esc(i.description)}</td><td>${esc(i.make||'')}</td><td>${esc(i.unit||'')}</td><td class="num">${fmt(i.qty,2)}</td><td class="num">${inr2(i.rate)}${i.baseRateInr&&i.baseRateInr!==i.rate?`<div class="muted">ex-duty ${inr2(i.baseRateInr)}</div>`:''}</td><td class="num">${inr(i.amount)}</td>
-    <td class="num">${i.procurable?fmt(o.qty,2):'-'}</td><td class="num">${i.procurable?inr(o.value):'-'}</td><td>${!i.procurable?'<span class="muted">non-procurable</span>':over?'<span class="flag">EXCEEDED</span>':o.qty?'<span class="okc">within</span>':''}</td></tr>`}).join('');
-  const hist=(pm.pcaHistory||[]).slice().reverse().map(h=>`<div class="audit-row"><span class="muted">${fmtDateTime(h.uploadedAt)}</span><b>v${h.version} · ${esc(h.uploadedByName||h.uploadedBy)}</b><span>${esc(h.fileName)} — procurement budget ${inr(h.procBudget)}${h.driveLink?` · <a target="_blank" href="${esc(h.driveLink)}">file</a>`:''}</span></div>`).join('');
-  return`<div class="card">${hdr}
-    <div class="detail-grid">
-      <div class="detail-item"><div class="lbl">File / version</div><div class="val">${esc(pca.fileName)} · v${pca.version||1}</div></div>
-      <div class="detail-item"><div class="lbl">Uploaded</div><div class="val">${fmtDateTime(pca.uploadedAt)} by ${esc(pca.uploadedByName||pca.uploadedBy||'')}</div></div>
-      <div class="detail-item"><div class="lbl">Tender ref / customer</div><div class="val">${esc(m.ref||'-')} · ${esc(m.customer||'-')}</div></div>
-      <div class="detail-item"><div class="lbl">Total input cost</div><div class="val">${inr(m.totalInputCost)}</div></div>
-      <div class="detail-item"><div class="lbl">Procurement budget (PO-able)</div><div class="val">${inr(pca.procBudget)}</div></div>
-      <div class="detail-item"><div class="lbl">GP % / selling price</div><div class="val">${m.gpPct!=null?fmt(m.gpPct*100,1)+'%':'-'} · ${m.sellingPrice?inr(m.sellingPrice):'-'}</div></div>
-    </div>
-    <div class="table-wrap"><table><thead><tr><th>Head</th><th>Item</th><th>Make / Spec</th><th>Unit</th><th class="num">PCA Qty</th><th class="num">PCA Rate</th><th class="num">PCA Amount</th><th class="num">Ordered Qty</th><th class="num">Ordered ₹</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
-  </div>${hist?`<div class="card"><div class="card-header"><span>Previous PCA versions</span></div>${hist}</div>`:''}`;
-}
-async function handlePcaFile(input){
-  const f=input.files[0];if(!f||!activeProjectId)return;
-  try{
-    const wb=await readWorkbook(f);const parsed=parsePcaWorkbook(wb,f.name);
-    if(!parsed.items.length)return showToast('Could not find any PCA item rows — is this the DQAP PCA workbook?','error');
-    window._pcaPending={parsed,file:f};
-    const pm=pmProj(activeProjectId),p=projectById(activeProjectId);
-    const hd=parsed.heads.map(h=>`<tr><td>${esc(h.label||h.name)}</td><td class="num">${inr(h.summaryTotal??h.total)}</td><td>${h.procurable?'<span class="okc">PO-able</span>':'<span class="muted">not via PO</span>'}</td></tr>`).join('');
-    const mismatch=parsed.meta.customer&&projClient(p)!=='-'&&!norm(projClient(p)).split(/[ ,()]+/).some(w=>w.length>2&&norm(parsed.meta.customer).includes(w));
-    openModal(modalHeader('Confirm PCA upload — '+esc(projLabel(p)))+`<div class="dialog-body">
-      ${mismatch?`<div class="notice warn"><i class="ti ti-alert-triangle"></i><div>PCA customer “${esc(parsed.meta.customer)}” does not look like project client “${esc(projClient(p))}”. Check you picked the right file.</div></div>`:''}
-      ${pm.pca?`<div class="notice info"><i class="ti ti-history"></i><div>This replaces PCA v${pm.pca.version||1} (budget ${inr(pm.pca.procBudget)}). The old version is kept in history; existing POs keep the PCA check frozen at their submission.</div></div>`:''}
-      <div class="detail-grid"><div class="detail-item"><div class="lbl">Tender ref</div><div class="val">${esc(parsed.meta.ref||'-')}</div></div><div class="detail-item"><div class="lbl">Customer</div><div class="val">${esc(parsed.meta.customer||'-')}</div></div>
-      <div class="detail-item"><div class="lbl">Items found</div><div class="val">${parsed.items.length}</div></div><div class="detail-item"><div class="lbl">Procurement budget</div><div class="val">${inr(parsed.procBudget)}</div></div></div>
-      <table><thead><tr><th>Cost head</th><th class="num">Amount</th><th></th></tr></thead><tbody>${hd}</tbody></table>
-      ${pm.pca?`<div class="form-group" style="margin-top:12px"><label class="req">Reason for replacing PCA</label><input id="pcaReason" placeholder="e.g. revised after client negotiation"></div>`:''}
-      <div class="btn-row" style="justify-content:flex-end;margin-top:14px"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="confirmPca()"><i class="ti ti-check"></i>Save PCA</button></div></div>`,true);
-  }catch(e){console.error(e);showToast('PCA read failed: '+e.message,'error')}
-}
-async function confirmPca(){
-  const st=window._pcaPending;if(!st)return;const pid=activeProjectId,pm=pmProj(pid);
-  const reason=pm.pca?g('pcaReason'):'';if(pm.pca&&!reason)return showToast('Give a reason for replacing the PCA','error');
-  showLoad('Saving PCA…');
-  try{
-    let driveLink='';try{const rec=await uploadToProms(st.file,pid,'pca',{tag:'PCA'});driveLink=rec?.webViewLink||''}catch(e){console.warn('PCA drive copy skipped:',e.message)}
-    const version=(pm.pca?.version||0)+1;
-    const pca={...st.parsed,version,uploadedAt:nowIso(),uploadedBy:me(),uploadedByName:myName(),driveLink,reason};
-    const patch={pca};
-    if(pm.pca){const o=pm.pca;patch.pcaHistory=firebase.firestore.FieldValue.arrayUnion({version:o.version||1,fileName:o.fileName,uploadedAt:o.uploadedAt,uploadedBy:o.uploadedBy,uploadedByName:o.uploadedByName||'',procBudget:o.procBudget,totalInputCost:o.meta?.totalInputCost||0,driveLink:o.driveLink||'',replacedAt:nowIso(),replacedBy:myName(),reason})}
-    if((pm.boq||[]).length)patch.boq=autoMatch(pm.boq.map(b=>pca.items.some(i=>i.key===b.pcaKey)?b:{...b,pcaKey:''}),pca);
-    await savePm(pid,patch,`PCA v${version} uploaded: ${st.parsed.fileName} — procurement budget ${inr(st.parsed.procBudget)}${reason?' — reason: '+reason:''}`);
-    window._pcaPending=null;closeModal();hideLoad();projSubTab='pca';renderProject();showToast('PCA saved'+(driveLink?' and filed in Drive':''));
-  }catch(e){hideLoad();showToast('Save failed: '+e.message,'error')}
-}
-
 // ── PO table (shared) ─────────────────────────────────────────────────
 function poTable(list){
   if(!list.length)return'<div class="empty">No purchase orders</div>';
-  return`<div class="table-wrap"><table><thead><tr><th>PO No.</th><th>Date</th><th>Project</th><th>Vendor</th><th class="num">Value (ex-GST ₹)</th><th class="num">Grand total</th><th>PCA</th><th>Status</th><th></th></tr></thead><tbody>${list.map(po=>`<tr>
+  return`<div class="table-wrap"><table><thead><tr><th>PO No.</th><th>Date</th><th>Project</th><th>Vendor</th><th class="num">Value (ex-GST ₹)</th><th class="num">Grand total</th><th>PECS check</th><th>Status</th><th></th></tr></thead><tbody>${list.map(po=>`<tr>
     <td><b>${esc(po.poNumber)}</b>${po.amendmentNo?`<div><span class="pill" style="background:#FFE0B2;color:#8a3b00">Amendment ${po.amendmentNo}</span></div>`:''}${po.revision?`<div class="muted">Rev ${po.revision}</div>`:''}</td><td>${fmtDate(po.poDate)}</td><td>${esc(po.projectNumber)}<div class="muted">${esc(po.projectName||'')}</div></td><td>${esc(po.vendorName)}</td>
     <td class="num">${inr(poInrValue(po))}</td><td class="num">${po.currency&&po.currency!=='INR'?esc(po.currency)+' '+fmt(po.totals?.grand,2):inr(po.totals?.grand)}</td><td>${pcaFlagBadge(po)}</td><td>${statusBadge(po.status)}</td>
     <td><button class="btn sm" onclick="viewPO('${po.id}')"><i class="ti ti-eye"></i>View</button></td></tr>`).join('')}</tbody></table></div>`;
@@ -885,8 +814,194 @@ function driveCard(p,pm){
   const d=pm.drive;
   if(!p.driveFolderId)return`<div class="notice warn"><i class="ti ti-folder-off"></i><div>This project has no Drive folder yet. Create the project Drive folders from DORBIT PMO — ProMS will then add its own <b>ProMS</b> folder inside it automatically.</div></div>`;
   const virt=window.offlineDriveListing?window.offlineDriveListing(p.id):'';
-  return`<div class="notice info"><i class="ti ti-brand-google-drive"></i><div style="flex:1"><b>Documents are filed in Google Drive</b> — ${d?.rootLink?`<a target="_blank" href="${esc(d.rootLink)}">open the ProMS folder</a> (BOQ · PCA · Quotations · Purchase Orders)`:'the <b>ProMS</b> folder is created inside the project’s PMO folder on the first upload.'}
+  return`<div class="notice info"><i class="ti ti-brand-google-drive"></i><div style="flex:1"><b>Documents are filed in Google Drive</b> — ${d?.rootLink?`<a target="_blank" href="${esc(d.rootLink)}">open the ProMS folder</a> (PECS · Sales PCA · Quotations · Purchase Orders)`:'the <b>ProMS</b> folder is created inside the project’s PMO folder on the first upload.'}
     ${virt}</div></div>`;
+}
+// ═══════════════════════════════════════════════════════════════════════
+// PECS TAB — upload, head-wise comparison with sales PCA, GM approval, versions
+// Rules: (1) every item belongs to a cost head, untagged → "Items not assigned to a cost head"
+//        (2) PECS GM% below sales-PCA GM% → Updesh approves; equal or higher → active immediately
+//        (3) any change in item / qty / cost = new PECS uploaded as a new version
+// ═══════════════════════════════════════════════════════════════════════
+function canUploadPecs(){return isBuyer()||isPratim()||isUpdesh()}
+const pctS=(x,d=1)=>x==null?'—':fmt(x*100,d)+'%';
+function varCls(p){return p>0.0005?'flag':p<-0.0005?'okc':'muted'}
+function headCompareTable(cmp){
+  if(!cmp)return'';
+  const noPca=!cmp.v;
+  const rows=cmp.rows.map(r=>{const unas=r.head===UNASSIGNED;
+    return`<tr class="${unas&&r.pecs?'over':''}"><td>${esc(r.head)}</td><td class="num">${noPca?'—':inr(r.pca)}</td><td class="num"><b>${inr(r.pecs)}</b></td><td class="num ${varCls(r.diff)}">${noPca?'—':(r.diff>0?'+':'')+inr(r.diff)}</td><td class="num ${varCls(r.diff)}">${noPca||r.pct==null?'—':(r.diff>0?'+':'')+fmt(r.pct*100,1)+'%'}</td>
+    <td class="muted">${noPca?'':unas?(r.pecs?'Tag these items to a head':''):r.diff>0.5?'Under-estimated by sales':r.diff<-0.5?'Over-estimated by sales':'On estimate'}</td></tr>`}).join('');
+  return`<div class="table-wrap"><table><thead><tr><th>Cost head</th><th class="num">Sales PCA (estimate)</th><th class="num">PECS (actual)</th><th class="num">Variance ₹</th><th class="num">Variance %</th><th>Reading</th></tr></thead><tbody>${rows}
+    <tr style="font-weight:700;background:#F5F7FA"><td>Total cost</td><td class="num">${cmp.v?inr(cmp.v.cost):'—'}</td><td class="num">${inr(cmp._pecs.totalCost)}</td><td class="num ${varCls(cmp.costDiff)}">${cmp.v?(cmp.costDiff>0?'+':'')+inr(cmp.costDiff):'—'}</td><td></td><td></td></tr>
+    <tr style="font-weight:700"><td>Selling price / PO value</td><td class="num">${cmp.v?.sell?inr(cmp.v.sell):'—'}</td><td class="num">${inr(cmp._pecs.poValue)}</td><td class="num">${cmp.sellDiff!=null?(cmp.sellDiff>0?'+':'')+inr(cmp.sellDiff):'—'}</td><td></td><td></td></tr>
+    <tr style="font-weight:700;background:#F5F7FA"><td>Gross margin ₹</td><td class="num">${cmp.v?.gm!=null?inr(cmp.v.gm):'—'}</td><td class="num">${inr(cmp._pecs.gm)}</td><td class="num">${cmp.v?.gm!=null?(cmp._pecs.gm-cmp.v.gm>0?'+':'')+inr(cmp._pecs.gm-cmp.v.gm):'—'}</td><td></td><td></td></tr>
+    <tr style="font-weight:800"><td>Gross margin %</td><td class="num">${pctS(cmp.v?.gmPct,2)}</td><td class="num ${cmp.gmDrop?'flag':'okc'}">${pctS(cmp._pecs.gmPct,2)}</td><td class="num ${cmp.gmDrop?'flag':'okc'}">${cmp.gmDelta!=null?(cmp.gmDelta>0?'+':'')+fmt(cmp.gmDelta*100,2)+' pts':'—'}</td><td></td><td class="${cmp.gmDrop?'flag':'okc'}">${cmp.gmDrop?'BELOW sales PCA':cmp.gmDelta!=null?'Equal / higher':''}</td></tr></tbody></table></div>`;
+}
+function cmpOf(pecs,sp){const c=pecsVsPca(pecs,sp);if(c)c._pecs=pecs;return c}
+function pecsStatsHtml(pecs,cmp){
+  return`<div class="stats">
+    <div class="stat"><div class="stat-icon"><i class="ti ti-file-invoice"></i></div><div><div class="stat-value">${inr(pecs.poValue)}</div><div class="stat-label">PO value (ex-GST)</div></div></div>
+    <div class="stat"><div class="stat-icon"><i class="ti ti-calculator"></i></div><div><div class="stat-value">${inr(pecs.totalCost)}</div><div class="stat-label">PECS total cost</div></div></div>
+    <div class="stat"><div class="stat-icon"><i class="ti ti-coin"></i></div><div><div class="stat-value">${inr(pecs.gm)}</div><div class="stat-label">Gross margin</div></div></div>
+    <div class="stat ${cmp?.gmDrop?'alert':''}"><div class="stat-icon"><i class="ti ti-percentage"></i></div><div><div class="stat-value">${pctS(pecs.gmPct)}</div><div class="stat-label">GM % ${cmp?.v?.gmPct!=null?'(sales PCA '+pctS(cmp.v.gmPct)+')':''}</div></div></div>
+  </div>`;
+}
+function projPecs(p,pm){
+  const pecs=pm.pecs,pend=pm.pecsPending,sp=pm.salesPca;
+  const ordered=orderedByPca(p.id);
+  const canPca=sp?(canReplacePca()||(isBuyer()&&!pecs)):canUploadPecs();
+  const hdr=`<div class="card"><div class="card-header"><span><i class="ti ti-table-column"></i> Project Execution Cost Sheet (PECS)</span><div class="btn-row">
+    <button class="btn sm" onclick="downloadPecsTemplate()"><i class="ti ti-download"></i>PECS template</button>
+    ${canUploadPecs()?`<button class="btn sm primary" onclick="${sp?`el('filePecs').value='';el('filePecs').click()`:`showToast('Upload the sales PCA (reference) first — PECS is measured against it','error')`}"><i class="ti ti-upload"></i>${pecs||pend?'Upload new PECS version':'Upload PECS'}</button>`:''}</div></div>
+    <div class="muted">PMO's actual execution cost: items, quantities, rates, PO value and the resulting gross margin. Every PO is checked against the <b>active PECS</b>. Any change to an item, quantity or cost → upload a new version. A PECS whose GM% is below the sales PCA's goes to <b>Updesh</b> for approval; equal or higher is active at once.</div></div>`;
+  const spCard=`<div class="card"><div class="card-header"><span><i class="ti ti-calculator"></i> Sales PCA — reference only</span><div class="btn-row">
+    ${sp?.driveLink?`<a class="btn sm" target="_blank" href="${esc(sp.driveLink)}"><i class="ti ti-brand-google-drive"></i>File</a>`:''}
+    ${canPca?`<button class="btn sm ${sp?'':'primary'}" onclick="el('filePca').value='';el('filePca').click()"><i class="ti ti-upload"></i>${sp?'Replace sales PCA':'Upload sales PCA'}</button>`:sp?'<span class="muted">Only Pratim/Updesh can replace it once a PECS exists</span>':''}</div></div>
+    ${sp?(()=>{const v=salesPcaView(sp);return`<div class="detail-grid"><div class="detail-item"><div class="lbl">File</div><div class="val">${esc(sp.fileName)}</div></div><div class="detail-item"><div class="lbl">Uploaded</div><div class="val">${fmtDateTime(sp.uploadedAt)} by ${esc(sp.uploadedByName||'')}</div></div>
+      <div class="detail-item"><div class="lbl">Estimated cost / selling price</div><div class="val">${inr(v.cost)} / ${v.sell?inr(v.sell):'—'}</div></div><div class="detail-item"><div class="lbl">Sales GM %</div><div class="val">${pctS(v.gmPct,2)}</div></div></div>`})()
+      :'<div class="empty">Upload the DQAP sales PCA workbook. It is not used for control — only to measure how accurate the estimate was (by cost head and gross margin).</div>'}</div>`;
+  // pending
+  let pendHtml='';
+  if(pend){
+    const cmp=cmpOf(pend,sp),df=diffPecs(pecs,pend,p.id);
+    pendHtml=`<div class="card" style="border:2px solid #F9A825"><div class="card-header"><span><i class="ti ti-hourglass"></i> PECS v${pend.version} — awaiting Updesh's approval</span><span class="badge s-updesh">Pending Updesh</span></div>
+      <div class="notice warn"><i class="ti ti-trending-down"></i><div><b>Gross margin ${pctS(pend.gmPct,2)} is below sales PCA ${pctS(pend.salesGmPct,2)}</b> (${fmt((pend.gmPct-pend.salesGmPct)*100,2)} pts). Submitted by ${esc(pend.uploadedByName)} on ${fmtDateTime(pend.uploadedAt)}${pend.reason?` — reason: “${esc(pend.reason)}”`:''}. ${pecs?`POs continue to be checked against PECS v${pecs.version} until this is approved.`:'POs cannot be raised until a PECS is active.'}</div></div>
+      ${pecsStatsHtml(pend,cmp)}${headCompareTable(cmp)}${diffSummaryHtml(df)}
+      ${isUpdesh()?`<div class="form-group" style="margin-top:12px"><label>Remarks (required to reject; recommended on approval)</label><textarea id="pecsRem" style="min-height:56px"></textarea></div>
+        <div class="btn-row"><button class="btn ok" onclick="approvePecs('${p.id}')"><i class="ti ti-check"></i>Approve &amp; activate v${pend.version}</button><button class="btn bad" onclick="rejectPecs('${p.id}')"><i class="ti ti-x"></i>Reject</button></div>`
+       :(canUploadPecs()?`<div class="btn-row" style="margin-top:10px"><button class="btn sm" onclick="withdrawPecs('${p.id}')"><i class="ti ti-arrow-back-up"></i>Withdraw</button></div>`:'')}</div>`;
+  }
+  if(!pecs)return hdr+spCard+pendHtml+(pend?'':`<div class="card"><div class="empty">No PECS yet. ${sp?'Download the template, fill it (items, quantities, rates, PO value, cost head against every item) and upload.':'Upload the sales PCA first, then the PECS.'}</div></div>`);
+  const cmp=cmpOf(pecs,sp);
+  const unas=pecs.items.filter(i=>i.head===UNASSIGNED);
+  const rows=pecs.items.map(i=>{const o=ordered[i.key]||{qty:0,value:0};const over=i.procurable&&(o.qty>i.qty+1e-9||o.value>i.amount+0.5);
+    return`<tr class="${over?'over':i.head===UNASSIGNED?'over':''}"><td><span class="pill">${esc(i.head===UNASSIGNED?'Not assigned':i.head)}</span></td><td>${esc(i.description)}${i.hsn?`<div class="muted">HSN ${esc(i.hsn)}</div>`:''}</td><td>${esc(i.make||'')}</td><td>${esc(i.unit||'')}</td><td class="num">${fmt(i.qty,2)}</td>
+      <td class="num">${inr2(i.landedRate)}${i.currency&&i.currency!=='INR'?`<div class="muted">${esc(i.currency)} ${fmt(i.rate,2)}</div>`:''}</td><td class="num">${inr(i.amount)}</td><td class="num">${i.procurable?fmt(o.qty,2):'-'}</td><td class="num">${i.procurable?inr(o.value):'-'}</td>
+      <td>${!i.procurable?'<span class="muted">not via PO</span>':over?'<span class="flag">EXCEEDED</span>':o.qty?'<span class="okc">within</span>':''}</td></tr>`}).join('');
+  const hist=(pm.pecsHistory||[]).slice().sort((a,b)=>String(b.at).localeCompare(String(a.at))).map(h=>`<div class="audit-row"><span class="muted">${fmtDateTime(h.at)}</span><b>v${h.version} · ${esc(h.status)}</b><span>${esc(h.by||'')} — GM ${pctS(h.gmPct,2)} · cost ${inr(h.totalCost)}${h.remarks?` — “${esc(h.remarks)}”`:''}${h.driveLink?` · <a target="_blank" href="${esc(h.driveLink)}">file</a>`:''}</span></div>`).join('');
+  return hdr+spCard+pendHtml+`<div class="card"><div class="card-header"><span>Active PECS — v${pecs.version}</span><div class="btn-row"><span class="badge s-ok">Active</span>${pecs.driveLink?`<a class="btn sm" target="_blank" href="${esc(pecs.driveLink)}"><i class="ti ti-brand-google-drive"></i>Original file</a>`:''}</div></div>
+    <div class="detail-grid"><div class="detail-item"><div class="lbl">File</div><div class="val">${esc(pecs.fileName)}</div></div><div class="detail-item"><div class="lbl">Uploaded / activated</div><div class="val">${fmtDateTime(pecs.uploadedAt)} by ${esc(pecs.uploadedByName||'')}${pecs.approvedBy?` · approved by ${esc(pecs.approvedBy)}`:''}</div></div>
+    <div class="detail-item"><div class="lbl">Client PO</div><div class="val">${esc(pecs.meta?.clientPo||'-')}${pecs.meta?.clientPoDate?' · '+esc(pecs.meta.clientPoDate):''}</div></div><div class="detail-item"><div class="lbl">Procurement budget (PO-able)</div><div class="val">${inr(derivePecsBaseline(pecs).pca.procBudget)}</div></div></div>
+    ${unas.length?`<div class="notice warn"><i class="ti ti-tag-off"></i><div><b>${unas.length} item(s) worth ${inr(unas.reduce((s,i)=>s+i.amount,0))} are not tagged to a cost head</b> — shown under “${UNASSIGNED}”. Tag them in the sheet and upload a new version for a fair comparison with the sales PCA.</div></div>`:''}
+    ${pecsStatsHtml(pecs,cmp)}
+    <div class="card-header" style="margin-top:6px"><span>Cost head comparison — sales PCA vs PECS (ex-GST, ₹)</span></div>${headCompareTable(cmp)}</div>
+    <div class="card"><div class="card-header"><span>PECS items (${pecs.items.length})</span><button class="btn sm" onclick="exportPecs('${p.id}')"><i class="ti ti-file-spreadsheet"></i>Export</button></div>
+    <div class="table-wrap"><table><thead><tr><th>Cost head</th><th>Item</th><th>Make / Model</th><th>Unit</th><th class="num">Qty</th><th class="num">Landed rate</th><th class="num">Amount</th><th class="num">Ordered qty</th><th class="num">Ordered ₹</th><th></th></tr></thead><tbody>${rows}</tbody></table></div></div>
+    ${hist?`<div class="card"><div class="card-header"><span>Version history</span></div>${hist}</div>`:''}`;
+}
+function diffSummaryHtml(df){
+  if(!df||(!df.added.length&&!df.removed.length&&!df.changed.length))return'';
+  const li=a=>a.map(x=>`<li>${x}</li>`).join('');
+  return`<div class="card" style="margin-top:10px"><div class="card-header"><span>What changed vs active version</span></div>
+    ${df.conflicts.length?`<div class="notice warn"><i class="ti ti-alert-triangle"></i><div><b>Conflicts with POs already placed</b><ul style="margin:4px 0 0 16px">${li(df.conflicts.map(esc))}</ul></div></div>`:''}
+    <ul style="margin:0 0 0 18px;font-size:12.5px">${li([...df.added.slice(0,15).map(i=>`<b>Added</b> ${esc(i.description)} — ${fmt(i.qty,2)} × ${inr2(i.landedRate)}`),...df.removed.slice(0,15).map(i=>`<b>Removed</b> ${esc(i.description)}`),...df.changed.slice(0,25).map(c=>`<b>Changed</b> ${esc(c.new.description)}: qty ${fmt(c.old.qty,2)} → ${fmt(c.new.qty,2)}, rate ${inr2(c.old.landedRate)} → ${inr2(c.new.landedRate)}${c.old.head!==c.new.head?`, head ${esc(c.old.head)} → ${esc(c.new.head)}`:''}`)])}</ul></div>`;
+}
+// ── PECS upload ─────────────────────────────────────────────────────────
+async function handlePecsFile(input){
+  const f=input.files[0];if(!f||!activeProjectId)return;
+  try{
+    const pm=pmProj(activeProjectId),p=projectById(activeProjectId);
+    if(!pm.salesPca)return showToast('Upload the sales PCA (reference) first','error');
+    const wb=await readWorkbook(f);const parsed=parsePecsWorkbook(wb,f.name);
+    if(!parsed.items.length)return showToast('No item rows found in the PECS sheet','error');
+    if(!(parsed.poValue>0))return showToast('PO value (₹, ex-GST) is missing at the top of the PECS sheet — it is needed to compute the gross margin','error');
+    const sv=salesPcaView(pm.salesPca);
+    if(sv.gmPct==null)return showToast('Sales PCA has no selling price / GP% — cannot compare margin','error');
+    window._pecsPending={parsed,file:f};
+    const cmp=cmpOf(parsed,pm.salesPca),df=diffPecs(pm.pecs,parsed,p.id);
+    const ver=Math.max(pm.pecs?.version||0,pm.pecsPending?.version||0,...(pm.pecsHistory||[]).map(h=>h.version||0))+1;
+    const needUpdesh=cmp.gmDrop&&!isUpdesh();
+    const mism=parsed.meta.projectNumber&&norm(parsed.meta.projectNumber)!==norm(p.number);
+    openModal(modalHeader(`Confirm PECS v${ver} — ${esc(projLabel(p))}`)+`<div class="dialog-body">
+      ${mism?`<div class="notice warn"><i class="ti ti-alert-triangle"></i><div>The sheet says project “${esc(parsed.meta.projectNumber)}” but you are on “${esc(p.number)}”. Check you picked the right file.</div></div>`:''}
+      ${parsed.unassignedCount?`<div class="notice warn"><i class="ti ti-tag-off"></i><div><b>${parsed.unassignedCount} item(s) (${inr(parsed.unassignedTotal)}) have no cost head</b> and fall under “${UNASSIGNED}”. You can still save, but head-wise comparison will be incomplete.</div></div>`:''}
+      ${parsed.warnings.length?`<div class="notice info"><i class="ti ti-info-circle"></i><div><b>${parsed.warnings.length} note(s) on the sheet</b><ul style="margin:4px 0 0 16px">${parsed.warnings.slice(0,8).map(w=>`<li>${esc(w)}</li>`).join('')}</ul></div></div>`:''}
+      ${cmp.gmDrop?`<div class="notice warn"><i class="ti ti-trending-down"></i><div><b>GM ${pctS(parsed.gmPct,2)} is below sales PCA ${pctS(cmp.v.gmPct,2)}.</b> ${needUpdesh?'This version will go to <b>Updesh</b> for approval before it becomes active.':'You are Updesh — it will be activated straight away and logged as a below-PCA approval.'}</div></div>`:`<div class="notice info"><i class="ti ti-circle-check"></i><div>GM ${pctS(parsed.gmPct,2)} is equal to or above sales PCA ${pctS(cmp.v.gmPct,2)} — <b>no approval needed</b>, the version becomes active immediately.</div></div>`}
+      ${pecsStatsHtml(parsed,cmp)}${headCompareTable(cmp)}${diffSummaryHtml(df)}
+      ${pm.pecs?`<div class="form-group" style="margin-top:12px"><label class="req">What changed / why is a new version needed?</label><input id="pecsReason" placeholder="e.g. cable qty increased after site survey"></div>`:''}
+      <div class="btn-row" style="justify-content:flex-end;margin-top:14px"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="confirmPecs()"><i class="ti ti-check"></i>${needUpdesh?'Submit for Updesh approval':'Save PECS v'+ver}</button></div></div>`,false);
+  }catch(e){console.error(e);showToast('PECS read failed: '+e.message,'error')}
+}
+function pecsHistEntry(v,status,remarks){return clean({version:v.version,status,at:nowIso(),by:myName(),gmPct:v.gmPct,totalCost:v.totalCost,poValue:v.poValue,remarks:remarks||'',driveLink:v.driveLink||'',fileName:v.fileName})}
+async function confirmPecs(){
+  const st=window._pecsPending;if(!st)return;const pid=activeProjectId,pm=pmProj(pid);
+  const reason=g('pecsReason')||'';if(pm.pecs&&reason.length<5)return showToast('Say what changed (min. 5 characters)','error');
+  const cmp=cmpOf(st.parsed,pm.salesPca);const FV=firebase.firestore.FieldValue;
+  const ver=Math.max(pm.pecs?.version||0,pm.pecsPending?.version||0,...(pm.pecsHistory||[]).map(h=>h.version||0))+1;
+  showLoad('Saving PECS…');
+  try{
+    let driveLink='';try{const rec=await uploadToProms(st.file,pid,'pecs',{tag:'PECS v'+ver});driveLink=rec?.webViewLink||''}catch(e){console.warn('PECS drive copy skipped:',e.message)}
+    const v={...st.parsed,version:ver,uploadedAt:nowIso(),uploadedBy:me(),uploadedByName:myName(),driveLink,reason,salesGmPct:cmp.v.gmPct,gmDrop:cmp.gmDrop};delete v.warnings;
+    const needUpdesh=cmp.gmDrop&&!isUpdesh();
+    const hist=[];let active=pm.pecs||null,pending=pm.pecsPending||null;
+    if(pending)hist.push(pecsHistEntry(pending,'Superseded by v'+ver));
+    if(needUpdesh){pending=v;}
+    else{
+      if(active)hist.push(pecsHistEntry(active,'Replaced by v'+ver,reason));
+      v.activatedAt=nowIso();if(cmp.gmDrop)v.approvedBy=myName()+' (below-PCA, self)';
+      active=v;pending=null;
+    }
+    const patch={pecsDoc:{active,pending},pecsPendingVersion:pending?pending.version:null};
+    if(hist.length)patch.pecsHistory=FV.arrayUnion(...hist);
+    await savePm(pid,patch,needUpdesh?`PECS v${ver} submitted for Updesh approval — GM ${pctS(v.gmPct,2)} < sales PCA ${pctS(v.salesGmPct,2)}${reason?' — '+reason:''}`:`PECS v${ver} active — GM ${pctS(v.gmPct,2)} (sales PCA ${pctS(v.salesGmPct,2)})${reason?' — '+reason:''}`);
+    window._pecsPending=null;closeModal();hideLoad();projSubTab='pecs';renderProject();
+    showToast(needUpdesh?'Sent to Updesh for approval':`PECS v${ver} is active`);
+  }catch(e){hideLoad();console.error(e);showToast('Save failed: '+e.message,'error')}
+}
+async function approvePecs(pid){
+  const pm=pmProj(pid),pend=pm.pecsPending;if(!pend||!isUpdesh())return;const FV=firebase.firestore.FieldValue;
+  const rem=g('pecsRem');
+  if(!confirm(`Approve PECS v${pend.version} with GM ${pctS(pend.gmPct,2)} (sales PCA ${pctS(pend.salesGmPct,2)}) and make it the active baseline?`))return;
+  const hist=[];if(pm.pecs)hist.push(pecsHistEntry(pm.pecs,'Replaced by v'+pend.version,pend.reason));
+  const v={...pend,activatedAt:nowIso(),approvedBy:myName(),approvalRemarks:rem};
+  await savePm(pid,{pecsDoc:{active:v,pending:null},pecsPendingVersion:null,...(hist.length?{pecsHistory:FV.arrayUnion(...hist)}:{})},`PECS v${pend.version} APPROVED by ${myName()} — GM ${pctS(pend.gmPct,2)} below sales PCA ${pctS(pend.salesGmPct,2)}${rem?' — '+rem:''}`);
+  showToast('PECS approved and active');
+}
+async function rejectPecs(pid){
+  const pm=pmProj(pid),pend=pm.pecsPending;if(!pend||!isUpdesh())return;const FV=firebase.firestore.FieldValue;
+  const rem=g('pecsRem');if(rem.length<5)return showToast('Give a reason for rejecting (min. 5 characters)','error');
+  await savePm(pid,{pecsDoc:{active:pm.pecs||null,pending:null},pecsPendingVersion:null,pecsHistory:FV.arrayUnion(pecsHistEntry(pend,'Rejected by '+myName(),rem))},`PECS v${pend.version} REJECTED by ${myName()} — ${rem}`);
+  showToast('PECS rejected — buyer can upload a revised version');
+}
+async function withdrawPecs(pid){
+  const pm=pmProj(pid),pend=pm.pecsPending;if(!pend)return;if(!confirm('Withdraw PECS v'+pend.version+' from approval?'))return;const FV=firebase.firestore.FieldValue;
+  await savePm(pid,{pecsDoc:{active:pm.pecs||null,pending:null},pecsPendingVersion:null,pecsHistory:FV.arrayUnion(pecsHistEntry(pend,'Withdrawn by '+myName()))},`PECS v${pend.version} withdrawn`);
+}
+function exportPecs(pid){
+  const pm=pmProj(pid),pecs=pm.pecs;if(!pecs)return;const ord=orderedByPca(pid);
+  const aoa=[['S.No','Cost head','Item','Make / Model','Unit','Qty','Rate','Currency','Exch','Duty %','Landed rate (₹)','Amount (₹)','Ordered qty','Ordered ₹']];
+  pecs.items.forEach(i=>aoa.push([i.sno,i.head,i.description,i.make,i.unit,i.qty,i.rate,i.currency,i.fxRate,i.dutyPct,i.landedRate,i.amount,ord[i.key]?.qty||0,r2(ord[i.key]?.value||0)]));
+  const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(aoa),'PECS v'+pecs.version);
+  downloadBlob(`PECS_${safeId(projectById(pid)?.number)}_v${pecs.version}.xlsx`,new Blob([XLSX.write(wb,{type:'array',bookType:'xlsx'})]));
+}
+// ── sales PCA reference upload ───────────────────────────────────────────
+async function handlePcaFile(input){
+  const f=input.files[0];if(!f||!activeProjectId)return;
+  try{
+    const wb=await readWorkbook(f);const parsed=parsePcaWorkbook(wb,f.name);
+    if(!parsed.items.length&&!parsed.heads.length)return showToast('Could not read this as a DQAP PCA workbook','error');
+    window._pcaPending={parsed,file:f};
+    const p=projectById(activeProjectId),pm=pmProj(activeProjectId);
+    const v=salesPcaView(parsed);
+    const mismatch=parsed.meta.customer&&projClient(p)!=='-'&&!norm(projClient(p)).split(/[ ,()]+/).some(w=>w.length>2&&norm(parsed.meta.customer).includes(w));
+    openModal(modalHeader('Confirm sales PCA (reference) — '+esc(projLabel(p)))+`<div class="dialog-body">
+      ${mismatch?`<div class="notice warn"><i class="ti ti-alert-triangle"></i><div>PCA customer “${esc(parsed.meta.customer)}” does not look like project client “${esc(projClient(p))}”.</div></div>`:''}
+      ${pm.pecs?`<div class="notice info"><i class="ti ti-info-circle"></i><div>A PECS is already active. Replacing the sales PCA changes the comparison and the GM approval threshold for future PECS versions.</div></div>`:''}
+      <div class="detail-grid"><div class="detail-item"><div class="lbl">Tender ref</div><div class="val">${esc(parsed.meta.ref||'-')}</div></div><div class="detail-item"><div class="lbl">Customer</div><div class="val">${esc(parsed.meta.customer||'-')}</div></div>
+      <div class="detail-item"><div class="lbl">Estimated cost</div><div class="val">${inr(v.cost)}</div></div><div class="detail-item"><div class="lbl">Selling price / GM %</div><div class="val">${v.sell?inr(v.sell):'—'} · ${pctS(v.gmPct,2)}</div></div></div>
+      <table><thead><tr><th>Cost head (mapped)</th><th class="num">Estimate</th></tr></thead><tbody>${HEAD_ORDER.filter(h=>v.byHead[h]).map(h=>`<tr><td>${esc(h)}</td><td class="num">${inr(v.byHead[h])}</td></tr>`).join('')}</tbody></table>
+      <div class="btn-row" style="justify-content:flex-end;margin-top:14px"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="confirmPca()"><i class="ti ti-check"></i>Save as reference</button></div></div>`,true);
+  }catch(e){console.error(e);showToast('PCA read failed: '+e.message,'error')}
+}
+async function confirmPca(){
+  const st=window._pcaPending;if(!st)return;const pid=activeProjectId;showLoad('Saving sales PCA…');
+  try{
+    let driveLink='';try{const rec=await uploadToProms(st.file,pid,'pca',{tag:'Sales PCA'});driveLink=rec?.webViewLink||''}catch(e){console.warn('PCA drive copy skipped:',e.message)}
+    const sp={...st.parsed,items:st.parsed.items.map(i=>({key:i.key,head:i.head,description:i.description,qty:i.qty,rate:i.rate,amount:i.amount})),uploadedAt:nowIso(),uploadedBy:me(),uploadedByName:myName(),driveLink};
+    await savePm(pid,{salesPca:sp},`Sales PCA (reference) saved: ${st.parsed.fileName}`);
+    window._pcaPending=null;closeModal();hideLoad();projSubTab='pecs';renderProject();showToast('Sales PCA saved as reference');
+  }catch(e){hideLoad();showToast('Save failed: '+e.message,'error')}
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -925,7 +1040,7 @@ function projQuotes(p,pm,list){
   const pending=(pm.boq||[]).filter(b=>boqBalance(p.id,b)>0).length;
   return`<div class="card"><div class="card-header"><span>Quotation comparisons (min. ${MIN_QUOTES} quotes per purchase)</span>
     ${isBuyer()?`<button class="btn sm primary" onclick="newCsModal()" ${(pm.boq||[]).length?'':'disabled'}><i class="ti ti-plus"></i>New comparison</button>`:''}</div>
-    ${!(pm.boq||[]).length?'<div class="notice info"><i class="ti ti-info-circle"></i><div>Upload the BOQ first — comparisons are built from BOQ lines.</div></div>':`<div class="muted" style="margin-bottom:8px">${pending} BOQ line(s) still have balance quantity to order.</div>`}
+    ${!(pm.boq||[]).length?'<div class="notice info"><i class="ti ti-info-circle"></i><div>Upload and activate the PECS first — comparisons are built from PECS items.</div></div>':`<div class="muted" style="margin-bottom:8px">${pending} PECS item(s) still have balance quantity to order.</div>`}
     ${rows?`<div class="table-wrap"><table><thead><tr><th>CS No.</th><th class="num">Items</th><th class="num">Quotes</th><th>L1 (ex-GST landed)</th><th>Selected vendor</th><th>Status</th><th>Created</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`:'<div class="empty">No comparisons yet</div>'}</div>`;
 }
 function newCsModal(){
@@ -936,15 +1051,15 @@ function newCsModal(){
   openModal(modalHeader('New quotation comparison')+`<div class="dialog-body">
     <div class="form-row"><div class="form-group"><label class="req">Title / package</label><input id="ncsTitle" placeholder="e.g. Simplex FDA devices, FRLS cable"></div></div>
     <div class="btn-row" style="margin-bottom:8px"><button class="btn sm" onclick="document.querySelectorAll('.ncsChk').forEach(c=>c.checked=true)">Select all</button><button class="btn sm" onclick="document.querySelectorAll('.ncsChk').forEach(c=>c.checked=false)">Clear</button></div>
-    ${rows?`<div class="table-wrap"><table><thead><tr><th></th><th>BOQ item</th><th>Unit</th><th class="num">Balance</th><th>Qty to enquire</th><th>Category</th></tr></thead><tbody>${rows}</tbody></table></div>`:'<div class="empty">All BOQ lines are fully ordered.</div>'}
+    ${rows?`<div class="table-wrap"><table><thead><tr><th></th><th>PECS item</th><th>Unit</th><th class="num">Balance</th><th>Qty to enquire</th><th>Category</th></tr></thead><tbody>${rows}</tbody></table></div>`:'<div class="empty">All PECS items are fully ordered.</div>'}
     <div class="btn-row" style="justify-content:flex-end;margin-top:14px"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="createCs()"><i class="ti ti-arrow-right"></i>Continue to quotes</button></div></div>`);
 }
 function blankQuote(){return{id:uid('q'),vendorId:'',vendorName:'',ref:'',date:today(),validity:'',currency:'INR',fxRate:1,payTerms:'',delivery:'',warranty:'',freight:0,gstPct:num(settings.defaultGstPct)||18,remarks:'',rates:{}}}
 function createCs(){
   const title=g('ncsTitle');const pid=activeProjectId;
   const ids=[...document.querySelectorAll('.ncsChk:checked')].map(c=>c.value);
-  if(!title)return showToast('Give the comparison a title','error');if(!ids.length)return showToast('Select at least one BOQ line','error');
-  const items=[];for(const id of ids){const b=boqItem(pid,id),q=num(g('ncsQ_'+id)),bal=boqBalance(pid,b);if(q<=0)return showToast('Qty must be > 0 for '+b.description,'error');if(q>bal+1e-9)return showToast(`Qty for “${b.description}” exceeds BOQ balance ${bal}`,'error');items.push({boqId:id,description:b.description,make:b.make,unit:b.unit,qty:q,pcaKey:b.pcaKey||''})}
+  if(!title)return showToast('Give the comparison a title','error');if(!ids.length)return showToast('Select at least one PECS item','error');
+  const items=[];for(const id of ids){const b=boqItem(pid,id),q=num(g('ncsQ_'+id)),bal=boqBalance(pid,b);if(q<=0)return showToast('Qty must be > 0 for '+b.description,'error');if(q>bal+1e-9)return showToast(`Qty for “${b.description}” exceeds PECS balance ${bal}`,'error');items.push({boqId:id,description:b.description,make:b.make,unit:b.unit,qty:q,pcaKey:b.pcaKey||''})}
   csDraft={id:null,projectId:pid,title,items,quotes:[blankQuote(),blankQuote(),blankQuote()],status:'OPEN',selectedQuoteId:'',justification:''};
   renderCsEditor();
 }
@@ -964,10 +1079,10 @@ function renderCsEditor(){
       <div class="btn-row">${ed?`<label class="btn sm"><i class="ti ti-paperclip"></i>${q._fileName||q.attachment?.fileName?'Replace':'Attach'} quote PDF<input type="file" style="display:none" accept=".pdf,.jpg,.jpeg,.png,.xlsx,.xls,.doc,.docx" onchange="csAttach(${qi},this)"></label>`:''}
         ${q._fileName?`<span class="muted">${esc(q._fileName)} (uploads on save)</span>`:q.attachment?.webViewLink?`<a target="_blank" href="${esc(q.attachment.webViewLink)}"><i class="ti ti-file"></i>${esc(q.attachment.fileName)}</a>`:'<span class="muted">No quote document attached</span>'}</div></div>`}).join('');
   const lineRows=c.items.map(it=>{const pi=pcaItem(pid,it.pcaKey);
-    return`<tr><td>${esc(it.description)}<div class="muted">${esc(it.make||'')}</div></td><td class="num">${fmt(it.qty,2)} ${esc(it.unit||'')}</td><td class="num">${pi?inr2(pi.rate):'<span class="flag">not in PCA</span>'}</td>
+    return`<tr><td>${esc(it.description)}<div class="muted">${esc(it.make||'')}</div></td><td class="num">${fmt(it.qty,2)} ${esc(it.unit||'')}</td><td class="num">${pi?inr2(pi.rate):'<span class="flag">not in PECS</span>'}</td>
     ${c.quotes.map((q,qi)=>{const r=quoteLine(q,it.boqId),net=num(r.rate)*(1-num(r.discPct)/100)*(num(q.fxRate)||1),over=pi&&net>0&&net>((q.currency||'INR')!=='INR'&&pi.baseRateInr?pi.baseRateInr:pi.rate)+0.005;
       return`<td class="${a.lineL1[it.boqId]===q.id?'l1':''}" id="cs_c_${qi}_${it.boqId}"><div style="display:flex;gap:4px"><input class="cell" type="number" step="any" placeholder="rate" value="${r.rate??''}" ${ed?'':'disabled'} oninput="csSetRate(${qi},'${it.boqId}','rate',this.value)"><input class="cell" style="min-width:50px;width:56px" type="number" step="any" placeholder="disc%" value="${r.discPct??''}" ${ed?'':'disabled'} oninput="csSetRate(${qi},'${it.boqId}','discPct',this.value)"></div>
-        <div class="muted" id="cs_n_${qi}_${it.boqId}">${net?'net ₹'+fmt(net,2)+(over?' <span class="flag">> PCA</span>':''):''}</div></td>`}).join('')}</tr>`}).join('');
+        <div class="muted" id="cs_n_${qi}_${it.boqId}">${net?'net ₹'+fmt(net,2)+(over?' <span class="flag">> PECS</span>':''):''}</div></td>`}).join('')}</tr>`}).join('');
   const totRow=k=>c.quotes.map(q=>{const t=a.totals[q.id];return`<td class="num ${k==='landedInr'&&q.id===a.l1Id?'l1':''}">${t?(k==='landedInr'?inr(t[k]):fmt(t[k],2)):'-'}</td>`}).join('');
   const sel=c.quotes.find(q=>q.id===c.selectedQuoteId);const needJ=sel&&(sel.id!==a.l1Id||a.validCount<MIN_QUOTES);
   openModal(modalHeader(`${c.csNo?esc(c.csNo)+' — ':''}${esc(c.title)} <span class="muted">· ${esc(projLabel(projectById(pid)))}</span>`)+`<div class="dialog-body" id="csBody">
@@ -975,7 +1090,7 @@ function renderCsEditor(){
     <div id="csNotice">${csNoticeHtml(a)}</div>
     <div class="quote-grid">${qCards}</div>
     ${ed?`<button class="btn sm" onclick="csAddQuote()" style="margin-bottom:12px"><i class="ti ti-plus"></i>Add another quote</button>`:''}
-    <div class="card" style="padding:0"><div class="table-wrap"><table><thead><tr><th>Item</th><th class="num">Qty</th><th class="num">PCA rate</th>${c.quotes.map((q,qi)=>`<th>Q${qi+1}: ${esc(q.vendorName||'—')} <span class="muted">${esc(q.currency||'INR')}</span><div class="muted" style="text-transform:none">rate · disc%</div></th>`).join('')}</tr></thead>
+    <div class="card" style="padding:0"><div class="table-wrap"><table><thead><tr><th>Item</th><th class="num">Qty</th><th class="num">PECS rate</th>${c.quotes.map((q,qi)=>`<th>Q${qi+1}: ${esc(q.vendorName||'—')} <span class="muted">${esc(q.currency||'INR')}</span><div class="muted" style="text-transform:none">rate · disc%</div></th>`).join('')}</tr></thead>
       <tbody>${lineRows}</tbody>
       <tfoot id="csFoot">${csFootHtml(c,a,totRow)}</tfoot></table></div></div>
     <div class="card"><div class="card-header"><span>Vendor finalisation</span></div>
@@ -996,7 +1111,7 @@ function csFootHtml(c,a,totRow){totRow=totRow||(k=>c.quotes.map(q=>{const t=a.to
   <tr><td colspan="3" class="right muted">Lines quoted</td>${c.quotes.map(q=>{const t=a.totals[q.id];return`<td class="num muted">${t?t.quoted+'/'+c.items.length:'-'}</td>`}).join('')}</tr>`}
 function csRefreshCalc(){
   const c=csDraft,a=csAnalysis(c),pid=c.projectId;
-  c.items.forEach(it=>{const pi=pcaItem(pid,it.pcaKey);c.quotes.forEach((q,qi)=>{const cell=el(`cs_c_${qi}_${it.boqId}`);if(!cell)return;cell.classList.toggle('l1',a.lineL1[it.boqId]===q.id);const r=quoteLine(q,it.boqId),net=num(r.rate)*(1-num(r.discPct)/100)*(num(q.fxRate)||1),over=pi&&net>0&&net>((q.currency||'INR')!=='INR'&&pi.baseRateInr?pi.baseRateInr:pi.rate)+0.005;el(`cs_n_${qi}_${it.boqId}`).innerHTML=net?'net ₹'+fmt(net,2)+(over?' <span class="flag">> PCA</span>':''):''})});
+  c.items.forEach(it=>{const pi=pcaItem(pid,it.pcaKey);c.quotes.forEach((q,qi)=>{const cell=el(`cs_c_${qi}_${it.boqId}`);if(!cell)return;cell.classList.toggle('l1',a.lineL1[it.boqId]===q.id);const r=quoteLine(q,it.boqId),net=num(r.rate)*(1-num(r.discPct)/100)*(num(q.fxRate)||1),over=pi&&net>0&&net>((q.currency||'INR')!=='INR'&&pi.baseRateInr?pi.baseRateInr:pi.rate)+0.005;el(`cs_n_${qi}_${it.boqId}`).innerHTML=net?'net ₹'+fmt(net,2)+(over?' <span class="flag">> PECS</span>':''):''})});
   el('csFoot').innerHTML=csFootHtml(c,a);el('csNotice').innerHTML=csNoticeHtml(a);
 }
 function csSetQ(qi,k,v){const q=csDraft.quotes[qi];q[k]=['fxRate','gstPct','freight'].includes(k)?num(v):v;if(k==='currency'&&v==='INR')q.fxRate=1;csRefreshCalc()}
@@ -1041,7 +1156,7 @@ async function cancelCs(){const c=csDraft;const why=prompt('Reason for cancellin
   await db.collection(PM_CS).doc(c.id).update({status:'CANCELLED',audit:firebase.firestore.FieldValue.arrayUnion(audit(null,'Cancelled: '+why))});closeCsEditor();showToast('Comparison cancelled')}
 
 // ═══════════════════════════════════════════════════════════════════════
-// PURCHASE ORDER — draft, PCA check, submit (auto PO No.), revise
+// PURCHASE ORDER — draft, PECS check, submit (auto PO No.), revise
 // ═══════════════════════════════════════════════════════════════════════
 function fyOf(dateStr){const d=new Date(dateStr||today());const y=d.getMonth()>=3?d.getFullYear():d.getFullYear()-1;return`${String(y).slice(2)}-${String(y+1).slice(2)}`}
 async function nextPoNumber(dateStr){
@@ -1054,7 +1169,7 @@ function startPoFromCs(csId){
   const pid=cs.projectId,p=projectById(pid),v=vendorById(q.vendorId)||{};
   const lines=cs.items.map(it=>{const b=boqItem(pid,it.boqId)||{},r=quoteLine(q,it.boqId),bal=boqBalance(pid,b);
     return{boqId:it.boqId,pcaKey:b.pcaKey||it.pcaKey||'',description:it.description,make:it.make||'',unit:it.unit||'Nos',hsn:b.hsn||'',qty:Math.max(0,Math.min(num(it.qty),bal)),rate:num(r.rate),discPct:num(r.discPct),gstPct:num(q.gstPct)}}).filter(l=>l.qty>0);
-  if(!lines.length)return showToast('Nothing left to order on this comparison — BOQ balance is zero','error');
+  if(!lines.length)return showToast('Nothing left to order on this comparison — PECS balance is zero','error');
   const foreign=(q.currency||'INR')!=='INR';
   poDraft={id:null,csId,csNo:cs.csNo,projectId:pid,vendorId:q.vendorId,vendorName:q.vendorName,quoteRef:q.ref,quoteDate:q.date,currency:q.currency||'INR',fxRate:foreign?num(q.fxRate)||1:1,
     orderType:'PURCHASE',poDate:today(),lines,freight:num(q.freight),freightGstPct:num(q.gstPct),otherCharges:0,otherChargesLabel:'',
@@ -1079,9 +1194,9 @@ function poTotalsHtml(d,t){const c=d.currency;const m=x=>c==='INR'?inr2(x):c+' '
 function pcaPanelHtml(chk){
   const b=chk.budget;
   return`<div class="notice ${chk.overPca?'bad':'ok'}"><i class="ti ${chk.overPca?'ti-alert-octagon':'ti-shield-check'}"></i><div style="flex:1">
-    <b>${chk.overPca?`PCA check: EXCEEDS PCA — ${chk.flags.length} flag(s), excess ≈ ${inr(chk.overAmt)}. Needs Updesh's approval after Pratim.`:'PCA check: within PCA. Needs Pratim’s approval.'}</b>
+    <b>${chk.overPca?`PECS check: EXCEEDS PECS — ${chk.flags.length} flag(s), excess ≈ ${inr(chk.overAmt)}. Needs Updesh's approval after Pratim.`:'PECS check: within PECS. Needs Pratim’s approval.'}</b>
     ${chk.flags.length?`<ul style="margin:6px 0 0 18px">${chk.flags.map(f=>`<li>${esc(f.msg)}</li>`).join('')}</ul>`:''}
-    <div class="muted" style="margin-top:6px">Project procurement: ordered before ${inr(b.orderedBefore)} + this PO ${inr(b.thisPo)} = ${inr(b.after)} vs PCA budget ${inr(b.procBudget)}${chk.tolerancePct?` (tolerance ${chk.tolerancePct}%)`:''}</div></div></div>`;
+    <div class="muted" style="margin-top:6px">Project procurement: ordered before ${inr(b.orderedBefore)} + this PO ${inr(b.thisPo)} = ${inr(b.after)} vs PECS budget ${inr(b.procBudget)}${chk.tolerancePct?` (tolerance ${chk.tolerancePct}%)`:''}</div></div></div>`;
 }
 function poRecalc(){const d=poDraft;if(!d)return;const t=poCalc(d);
   const chk=evaluatePca(d.projectId,d.lines,{fxRate:d.fxRate,currency:d.currency,excludePoId:d.id,thisPoValueInr:(t.basic+num(d.freight)+num(d.otherCharges))*(num(d.fxRate)||1)});d._chk=chk;
@@ -1090,7 +1205,7 @@ function poRecalc(){const d=poDraft;if(!d)return;const t=poCalc(d);
 }
 function validatePoDraft(d){
   if(!d.lines.length)return'PO has no lines';
-  for(const l of d.lines){if(num(l.qty)<=0)return`Qty must be > 0 for “${l.description}”`;const b=boqItem(d.projectId,l.boqId);if(b){const bal=boqBalance(d.projectId,b,d.id);if(num(l.qty)>bal+1e-9)return`Qty for “${l.description}” exceeds BOQ balance ${fmt(bal,2)}`}}
+  for(const l of d.lines){if(num(l.qty)<=0)return`Qty must be > 0 for “${l.description}”`;const b=boqItem(d.projectId,l.boqId);if(b){const bal=boqBalance(d.projectId,b,d.id);if(num(l.qty)>bal+1e-9)return`Qty for “${l.description}” exceeds PECS balance ${fmt(bal,2)}`}}
   if(!d.poDate)return'PO date required';if(!d.paymentTerms)return'Payment terms required';if(!d.deliveryPeriod)return'Delivery period required';if(!String(d.shipTo||'').trim())return'Delivery address required';
   if(d.currency!=='INR'&&num(d.fxRate)<=1)return'Enter the exchange rate for the foreign-currency PO';
   return'';
@@ -1125,7 +1240,7 @@ function renderPoEditor(){
   const cs=csData.find(c=>c.id===d.csId);
   const st=d.specialTerms||[];
   openModal(modalHeader(amend?`Amend PO ${esc(d.poNumber)} — Amendment ${(d.amendmentNo||0)+1} — ${esc(d.vendorName)}`:`${d.id?'Revise PO '+esc(d.poNumber):'New purchase order'} — ${esc(d.vendorName)}`)+`<div class="dialog-body" id="poBody">
-    ${amend?`<div class="notice info"><i class="ti ti-file-diff"></i><div><b>Amending a released PO.</b> The current approved version (${inr2(d.totals?.grand)}) stays in force and keeps counting against PCA until this amendment is approved. The amendment goes through the same approval route (Pratim → Updesh if over PCA). Every earlier version remains reprintable.</div></div>`:''}
+    ${amend?`<div class="notice info"><i class="ti ti-file-diff"></i><div><b>Amending a released PO.</b> The current approved version (${inr2(d.totals?.grand)}) stays in force and keeps counting against PECS until this amendment is approved. The amendment goes through the same approval route (Pratim → Updesh if over PECS). Every earlier version remains reprintable.</div></div>`:''}
     <div class="detail-grid">
       <div class="detail-item"><div class="lbl">Project</div><div class="val">${esc(projLabel(projectById(pid)))}</div></div>
       <div class="detail-item"><div class="lbl">Vendor</div><div class="val">${esc(d.vendorName)}<div class="muted">${esc(v.gstin||'GSTIN not on file')} · ${esc(v.state||'state?')}</div></div></div>
@@ -1134,8 +1249,8 @@ function renderPoEditor(){
     </div>
     ${!v.gstin&&!foreign?'<div class="notice warn"><i class="ti ti-id-badge-2"></i><div>Vendor GSTIN / state missing in vendor master — tax split (IGST vs CGST+SGST) may be wrong. Update the vendor before submitting.</div></div>':''}
     <div id="poPcaPanel">${pcaPanelHtml(chk)}</div>
-    <div class="card" style="padding:0"><div class="table-wrap"><table><thead><tr><th>#</th><th>Description</th><th>HSN</th><th>Qty</th><th class="num">Rate (${esc(d.currency)})</th><th class="num">Disc %</th><th class="num">Net rate</th>${foreign?'':'<th>GST %</th>'}<th class="num">Amount</th><th class="num">PCA rate ₹</th><th>PCA check</th><th></th></tr></thead><tbody>${rows}</tbody></table></div></div>
-    ${amend?`<div class="btn-row" style="margin:-4px 0 12px"><button class="btn sm" onclick="addAmendLineModal()"><i class="ti ti-plus"></i>Add BOQ item to this PO</button>${(d.cancelledLines||[]).length?`<span class="muted">${d.cancelledLines.length} line(s) cancelled in earlier amendments</span>`:''}</div>`:''}
+    <div class="card" style="padding:0"><div class="table-wrap"><table><thead><tr><th>#</th><th>Description</th><th>HSN</th><th>Qty</th><th class="num">Rate (${esc(d.currency)})</th><th class="num">Disc %</th><th class="num">Net rate</th>${foreign?'':'<th>GST %</th>'}<th class="num">Amount</th><th class="num">PECS rate ₹</th><th>PECS check</th><th></th></tr></thead><tbody>${rows}</tbody></table></div></div>
+    ${amend?`<div class="btn-row" style="margin:-4px 0 12px"><button class="btn sm" onclick="addAmendLineModal()"><i class="ti ti-plus"></i>Add PECS item to this PO</button>${(d.cancelledLines||[]).length?`<span class="muted">${d.cancelledLines.length} line(s) cancelled in earlier amendments</span>`:''}</div>`:''}
     <div class="form-row">${f('poDate','PO date (original)','date',amend?'disabled':'')}${foreign?f('fxRate','Exchange rate (₹ per '+esc(d.currency)+')','number','step="any"'):''}${f('freight','Freight / P&F ('+esc(d.currency)+')','number','step="any"')}${foreign?'':f('freightGstPct','GST % on freight/other','number','step="any"')}${f('otherCharges','Other charges','number','step="any"')}${f('otherChargesLabel','Other charges label')}</div>
     <div id="poTotals">${poTotalsHtml(d,t)}</div>
     <div class="card"><div class="card-header"><span>Scope, delivery &amp; commercial terms</span></div>
@@ -1156,7 +1271,7 @@ function renderPoEditor(){
       <ol class="muted" style="margin:8px 0 0 18px;line-height:1.6">${(d.tnc||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ol><div class="muted" style="margin-top:6px">Managed centrally in Settings; not editable per order.</div></details></div>
     ${cs?.justification?`<div class="notice info"><i class="ti ti-message"></i><div><b>CS justification:</b> ${esc(cs.justification)}</div></div>`:''}
     <div class="form-group" id="poJustWrap" style="${chk.overPca?'':'display:none'}"><label class="req">Justification for exceeding PCA (goes to Updesh)</label><textarea oninput="poDraft.overPcaJustification=this.value">${esc(d.overPcaJustification||'')}</textarea></div>
-    ${amend?`<div class="form-group"><label class="req">Reason for amendment (printed on the PO)</label><textarea style="min-height:64px" placeholder="e.g. Qty of smoke detectors increased by 20 Nos as per revised BOQ approved by client; delivery extended to 30-Nov" oninput="poDraft.amendReason=this.value">${esc(d.amendReason||'')}</textarea></div>`:''}
+    ${amend?`<div class="form-group"><label class="req">Reason for amendment (printed on the PO)</label><textarea style="min-height:64px" placeholder="e.g. Qty of smoke detectors increased by 20 Nos as per revised PECS approved by client; delivery extended to 30-Nov" oninput="poDraft.amendReason=this.value">${esc(d.amendReason||'')}</textarea></div>`:''}
     <div class="btn-row" style="justify-content:flex-end;margin-top:12px"><button class="btn" onclick="poDraft=null;closeModal();renderAll(true)">Cancel</button>
       <button class="btn" onclick="previewDraftPO()"><i class="ti ti-eye"></i>Preview</button>
       <button class="btn primary" onclick="submitPO()"><i class="ti ti-send"></i>${amend?'Submit amendment for approval':d.id?'Resubmit for approval':'Generate PO No. & submit for approval'}</button></div></div>`);
@@ -1173,8 +1288,8 @@ async function submitPO(){
   const d=poDraft;if(d.amendOf)return submitAmendment();
   const err=validatePoDraft(d);if(err)return showToast(err,'error');
   const doc=buildPoDoc(d);
-  if(doc.pcaCheck.overPca&&String(d.overPcaJustification||'').trim().length<15)return showToast('Over-PCA justification required (min. 15 characters)','error');
-  if(!confirm(`${d.id?'Resubmit':'Submit'} PO to ${d.vendorName} for ${d.currency==='INR'?inr2(doc.totals.grand):d.currency+' '+fmt(doc.totals.grand,2)}?\n${doc.pcaCheck.overPca?'⚠ Over PCA — will route Pratim → Updesh':'Within PCA — routes to Pratim'}`))return;
+  if(doc.pcaCheck.overPca&&String(d.overPcaJustification||'').trim().length<15)return showToast('Over-PECS justification required (min. 15 characters)','error');
+  if(!confirm(`${d.id?'Resubmit':'Submit'} PO to ${d.vendorName} for ${d.currency==='INR'?inr2(doc.totals.grand):d.currency+' '+fmt(doc.totals.grand,2)}?\n${doc.pcaCheck.overPca?'⚠ Over PECS — will route Pratim → Updesh':'Within PECS — routes to Pratim'}`))return;
   showLoad('Submitting PO…');
   try{
     doc.status='PENDING_PRATIM';doc.submittedAt=nowIso();doc.submittedBy=me();doc.submittedByName=myName();doc.approvals=[];doc.amendmentNo=0;doc.amendmentDate='';
@@ -1186,7 +1301,7 @@ async function submitPO(){
       await db.collection(PM_PO).doc(d.id).update(doc);
     }else{
       doc.poNumber=await nextPoNumber(d.poDate);doc.revision=0;doc.createdAt=nowIso();doc.createdBy=me();
-      doc.audit=[audit(null,`PO ${doc.poNumber} generated & submitted — ${inr(doc.totals.grand)}${doc.pcaCheck.overPca?` — OVER PCA by ≈${inr(doc.pcaCheck.overAmt)}`:' — within PCA'}`)];
+      doc.audit=[audit(null,`PO ${doc.poNumber} generated & submitted — ${inr(doc.totals.grand)}${doc.pcaCheck.overPca?` — OVER PCA by ≈${inr(doc.pcaCheck.overAmt)}`:' — within PECS'}`)];
       const ref=await db.collection(PM_PO).add(doc);
       await db.collection(PM_CS).doc(d.csId).update({status:'PO_RAISED',poIds:firebase.firestore.FieldValue.arrayUnion(ref.id),audit:firebase.firestore.FieldValue.arrayUnion(audit(null,'PO raised: '+doc.poNumber))});
     }
@@ -1213,16 +1328,16 @@ function startAmendment(id){
 function addAmendLineModal(){
   const d=poDraft,pid=d.projectId,pm=pmProj(pid),have=new Set(d.lines.map(l=>l.boqId));
   const opts=(pm.boq||[]).filter(b=>!have.has(b.id)&&boqBalance(pid,b,d.id)>0);
-  openSubModal(`<div class="card-header"><span>Add BOQ item to PO ${esc(d.poNumber)}</span><button class="btn sm" onclick="closeSubModal()"><i class="ti ti-x"></i></button></div><div class="dialog-body">
-    ${opts.length?`<div class="form-group"><label>BOQ item (with balance qty)</label><select id="alBoq">${opts.map(b=>`<option value="${b.id}">${esc(b.description)} — bal ${fmt(boqBalance(pid,b,d.id),2)} ${esc(b.unit)}</option>`).join('')}</select></div>
+  openSubModal(`<div class="card-header"><span>Add PECS item to PO ${esc(d.poNumber)}</span><button class="btn sm" onclick="closeSubModal()"><i class="ti ti-x"></i></button></div><div class="dialog-body">
+    ${opts.length?`<div class="form-group"><label>PECS item (with balance qty)</label><select id="alBoq">${opts.map(b=>`<option value="${b.id}">${esc(b.description)} — bal ${fmt(boqBalance(pid,b,d.id),2)} ${esc(b.unit)}</option>`).join('')}</select></div>
     <div class="form-row"><div class="form-group"><label class="req">Qty</label><input id="alQty" type="number" step="any"></div><div class="form-group"><label class="req">Rate (${esc(d.currency)})</label><input id="alRate" type="number" step="any"></div><div class="form-group"><label>Disc %</label><input id="alDisc" type="number" step="any" value="0"></div><div class="form-group"><label>GST %</label><input id="alGst" type="number" step="any" value="${(d.lines[0]?.gstPct)??num(settings.defaultGstPct)}"></div></div>
     <div class="notice warn"><i class="ti ti-info-circle"></i><div>Items added by amendment should be backed by a vendor quotation/offer; attach it to the project’s Procurement folder and mention it in the amendment reason.</div></div>
-    <div class="btn-row" style="justify-content:flex-end"><button class="btn" onclick="closeSubModal()">Cancel</button><button class="btn primary" onclick="addAmendLine()">Add</button></div>`:'<div class="empty">No other BOQ lines have balance quantity.</div>'}</div>`);
+    <div class="btn-row" style="justify-content:flex-end"><button class="btn" onclick="closeSubModal()">Cancel</button><button class="btn primary" onclick="addAmendLine()">Add</button></div>`:'<div class="empty">No other PECS items have balance quantity.</div>'}</div>`);
 }
 function addAmendLine(){
   const d=poDraft,b=boqItem(d.projectId,g('alBoq')),q=num(g('alQty')),r=num(g('alRate'));
   if(!b||q<=0||r<=0)return showToast('Item, qty and rate are required','error');
-  if(q>boqBalance(d.projectId,b,d.id)+1e-9)return showToast('Qty exceeds BOQ balance','error');
+  if(q>boqBalance(d.projectId,b,d.id)+1e-9)return showToast('Qty exceeds PECS balance','error');
   d.lines.push({boqId:b.id,pcaKey:b.pcaKey||'',description:b.description,make:b.make||'',unit:b.unit||'Nos',hsn:b.hsn||'',qty:q,rate:r,discPct:num(g('alDisc')),gstPct:num(g('alGst'))});
   closeSubModal();renderPoEditor();
 }
@@ -1255,8 +1370,8 @@ async function submitAmendment(){
   const reason=String(d.amendReason||'').trim();if(reason.length<10)return showToast('Enter the reason for amendment (min. 10 characters)','error');
   const nw=buildPoDoc(d),df=diffAmend(old,nw);
   if(!df.changes.length)return showToast('Nothing has changed — no amendment needed','error');
-  if(nw.pcaCheck.overPca&&String(d.overPcaJustification||'').trim().length<15)return showToast('Over-PCA justification required (min. 15 characters)','error');
-  if(!confirm(`Submit Amendment ${df.no} on ${old.poNumber}?\nValue ${inr2(old.totals.grand)} → ${inr2(nw.totals.grand)}\n${df.changes.length} change(s)\n${nw.pcaCheck.overPca?'⚠ Over PCA — Pratim → Updesh':'Within PCA — Pratim'}`))return;
+  if(nw.pcaCheck.overPca&&String(d.overPcaJustification||'').trim().length<15)return showToast('Over-PECS justification required (min. 15 characters)','error');
+  if(!confirm(`Submit Amendment ${df.no} on ${old.poNumber}?\nValue ${inr2(old.totals.grand)} → ${inr2(nw.totals.grand)}\n${df.changes.length} change(s)\n${nw.pcaCheck.overPca?'⚠ Over PECS — Pratim → Updesh':'Within PECS — Pratim'}`))return;
   showLoad('Submitting amendment…');
   try{
     const p={};PO_VERSION_FIELDS.forEach(k=>{if(nw[k]!==undefined)p[k]=nw[k]});
@@ -1470,7 +1585,7 @@ function poPrintHtml(po,ver,style){
     ${prow('Taxable Value',fmt(t.taxable,2))}${taxRows}${prow('Grand Total',fmt(t.grand,2),true)}</tbody></table>`);
   const ess=[['Price Variation',m.priceVariation||'Not Applicable'],['Delivery Terms',m.priceBasis],['Freight',m.freightTerms],['Transit Insurance',m.insurance],['Inspection',m.inspection],['Warranty',m.warranty],['Order Expiry Date',m.orderExpiry?fmtD(m.orderExpiry):'-'],['Special Instructions',m.specialNotes]].filter(r=>r[1]);
   const essentials2=sec('Essentials Details',`<table class="tbl"><thead><tr><th style="width:36%">Attribute Details</th><th>Attribute Value</th></tr></thead><tbody>${ess.map(r=>`<tr><td><b>${esc(r[0])}</b></td><td>${esc(r[1])}</td></tr>`).join('')}</tbody></table>`);
-  const quote=sec('Quotation Details',`<table class="tbl"><thead><tr><th>Comparison (CS) No.</th><th>Vendor Quotation Ref</th><th>Quotation Date</th><th>BOQ Line</th></tr></thead><tbody>${lines.map((l,i)=>`<tr><td>${esc(po.csNo||'')}</td><td>${esc(po.quoteRef||'')}</td><td>${fmtD(po.quoteDate)}</td><td>${i+1} - ${esc(l.description).slice(0,60)}</td></tr>`).join('')}</tbody></table>`);
+  const quote=sec('Quotation Details',`<table class="tbl"><thead><tr><th>Comparison (CS) No.</th><th>Vendor Quotation Ref</th><th>Quotation Date</th><th>PECS Line</th></tr></thead><tbody>${lines.map((l,i)=>`<tr><td>${esc(po.csNo||'')}</td><td>${esc(po.quoteRef||'')}</td><td>${fmtD(po.quoteDate)}</td><td>${i+1} - ${esc(l.description).slice(0,60)}</td></tr>`).join('')}</tbody></table>`);
 
   // ── annexures ──
   const sched=lines.map((l,i)=>{const sch=l.schedule&&l.schedule.length?l.schedule:[{qty:l.qty,from:l.deliverFrom||m.deliveryFrom||m.poDate,to:l.deliverTo||m.deliveryTo,remarks:''}];
@@ -1525,7 +1640,7 @@ function renderRegister(){
     <button class="btn sm" onclick="exportRegister()"><i class="ti ti-file-spreadsheet"></i>Export</button></div></div>${poTable(list)}</div>`;
 }
 function exportRegister(){
-  const aoa=[['PO No','Rev','PO Date','Project No','Project','Client','Vendor','Vendor GSTIN','Currency','FX','Basic','Freight+Other','GST','Grand Total','Ex-GST INR','PCA Status','PCA Flags','Status','Raised By','Released On','CS No']];
+  const aoa=[['PO No','Rev','PO Date','Project No','Project','Client','Vendor','Vendor GSTIN','Currency','FX','Basic','Freight+Other','GST','Grand Total','Ex-GST INR','PECS Status','PECS Flags','Status','Raised By','Released On','CS No']];
   registerList().forEach(p=>aoa.push([p.poNumber,p.revision||0,p.poDate,p.projectNumber,p.projectName,p.client,p.vendorName,p.vendorSnapshot?.gstin||'',p.currency||'INR',num(p.fxRate)||1,p.totals?.basic,num(p.freight)+num(p.otherCharges),p.totals?.gst,p.totals?.grand,poInrValue(p),p.pcaCheck?.overPca?'OVER PCA':'Within',(p.pcaCheck?.flags||[]).map(f=>f.msg).join(' | '),PO_STATUS[p.status]||p.status,p.submittedByName||p.createdBy,p.releasedAt?fmtDate(p.releasedAt):'',p.csNo||'']));
   const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(aoa),'PO Register');
   downloadBlob(`ProMS_PO_Register_${today()}.xlsx`,new Blob([XLSX.write(wb,{type:'array',bookType:'xlsx'})]));
@@ -1577,12 +1692,12 @@ async function saveVendor(id,quoteIdx){
 function renderSettings(){
   const s=settings,c=s.company;const f=(k,lbl)=>`<div class="form-group"><label>${lbl}</label><input id="sc_${k}" value="${esc(c[k]||'')}"></div>`;
   el('tab-settings').innerHTML=`<div class="card"><div class="card-header"><span>Access</span></div>
-    <div class="form-row"><div class="form-group"><label>Buyers (DORBIT usernames, comma separated) — can upload BOQ/PCA, enter quotes, raise POs</label><input id="st_buyers" value="${esc((s.buyers||[]).join(', '))}"></div>
+    <div class="form-row"><div class="form-group"><label>Buyers (DORBIT usernames, comma separated) — can upload PECS, enter quotes, raise POs</label><input id="st_buyers" value="${esc((s.buyers||[]).join(', '))}"></div>
     <div class="form-group"><label>Viewers — read-only</label><input id="st_viewers" value="${esc((s.viewers||[]).join(', '))}"></div></div>
     <div class="muted">Pratim (L1) and Updesh (L1/L2 + settings) always have access. DORBIT users: ${usersData.map(u=>esc(u.username)).join(', ')}</div></div>
     <div class="card"><div class="card-header"><span>PO controls</span></div><div class="form-row">
       <div class="form-group"><label>PO number prefix</label><input id="st_prefix" value="${esc(s.poPrefix||'DQAP/PO')}"><div class="muted">Format: PREFIX/FY/0001 → ${esc(s.poPrefix||'DQAP/PO')}/${fyOf(today())}/0001</div></div>
-      <div class="form-group"><label>PCA tolerance % (0 = flag any excess)</label><input id="st_tol" type="number" step="any" value="${num(s.pcaTolerancePct)}"></div>
+      <div class="form-group"><label>PECS tolerance % (0 = flag any excess)</label><input id="st_tol" type="number" step="any" value="${num(s.pcaTolerancePct)}"></div>
       <div class="form-group"><label>Default GST %</label><input id="st_gst" type="number" step="any" value="${num(s.defaultGstPct)||18}"></div>
       <div class="form-group"><label>Signatory line</label><input id="st_sign" value="${esc(s.signatory||'')}"></div></div></div>
     <div class="card"><div class="card-header"><span>Company details printed on PO</span></div>
@@ -1615,7 +1730,7 @@ function printCS(id){
   const info=(lbl,k)=>`<tr><td colspan="4" class="num">${lbl}</td>${q.map(x=>`<td colspan="2">${esc(k==='date'||k==='validity'?fmtDate(x[k]):x[k]||'')}</td>`).join('')}</tr>`;
   const sel=q.find(x=>x.id===cs.selectedQuoteId);
   openPrint(cs.csNo,`<div class="hdr"><div><h1>${esc(settings.company.name)}</h1><div>Comparative Statement of Quotations</div></div><table class="noborder" style="width:auto"><tr><td class="lbl">CS No.</td><td><b>${esc(cs.csNo)}</b></td></tr><tr><td class="lbl">Project</td><td>${esc(cs.projectNumber)} — ${esc(cs.projectName)}</td></tr><tr><td class="lbl">Package</td><td>${esc(cs.title)}</td></tr><tr><td class="lbl">Status</td><td>${esc(CS_STATUS[cs.status]||cs.status)}</td></tr></table></div>
-  <table><thead><tr><th rowspan="2">#</th><th rowspan="2">Item</th><th rowspan="2">Qty</th><th rowspan="2">PCA rate ₹</th>${q.map(x=>`<th colspan="2" class="${x.id===cs.selectedQuoteId?'sel':''}">${esc(x.vendorName)} (${esc(x.currency||'INR')})</th>`).join('')}</tr><tr>${q.map(()=>'<th>Net rate</th><th>Amount</th>').join('')}</tr></thead>
+  <table><thead><tr><th rowspan="2">#</th><th rowspan="2">Item</th><th rowspan="2">Qty</th><th rowspan="2">PECS rate ₹</th>${q.map(x=>`<th colspan="2" class="${x.id===cs.selectedQuoteId?'sel':''}">${esc(x.vendorName)} (${esc(x.currency||'INR')})</th>`).join('')}</tr><tr>${q.map(()=>'<th>Net rate</th><th>Amount</th>').join('')}</tr></thead>
   <tbody>${rows}${tr('Basic','basic')}${tr('Freight / P&F','freight')}${tr('GST','gst')}${tr('Grand total','grand')}${tr('Ex-GST landed ₹ (comparison basis)','landedInr')}
   ${info('Quote ref','ref')}${info('Quote date','date')}${info('Valid till','validity')}${info('Payment terms','payTerms')}${info('Delivery','delivery')}${info('Warranty','warranty')}</tbody></table>
   <p><b>Recommended vendor:</b> ${sel?esc(sel.vendorName)+(sel.id===a.l1Id?' (L1)':' — <b>not L1</b>'):'not finalised'}${cs.justification?`<br><b>Justification:</b> ${esc(cs.justification)}`:''}<br><small>Complete quotes: ${a.validCount} · NQ = not quoted · Shaded = lowest.</small></p>
@@ -1637,8 +1752,8 @@ function poAmendHtml(po){
   return`<div class="card" style="border:2px solid #E65100"><div class="card-header" style="background:#FFF3E0"><span><i class="ti ti-edit"></i> Proposed Amendment ${p.amendmentNo} — by ${esc(p.requestedByName||'')}</span><span class="strong">${m(p.valueBefore)} → ${m(p.valueAfter)} <span class="${num(p.valueAfter)>num(p.valueBefore)?'flag':'okc'}">(${num(p.valueAfter)>=num(p.valueBefore)?'+':''}${m(num(p.valueAfter)-num(p.valueBefore))})</span></span></div>
     <div style="padding:12px"><div><b>Reason:</b> ${esc(p.reason)}</div>
     <ul style="margin:8px 0 0 18px">${(p.changes||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
-    ${p.overPcaJustification?`<div class="notice warn" style="margin-top:8px"><i class="ti ti-message-exclamation"></i><div><b>Over-PCA justification:</b> ${esc(p.overPcaJustification)}</div></div>`:''}
-    ${pcaPanelHtml(chk).replace('PCA check:','PCA check on amended PO:')}</div></div>`;
+    ${p.overPcaJustification?`<div class="notice warn" style="margin-top:8px"><i class="ti ti-message-exclamation"></i><div><b>Over-PECS justification:</b> ${esc(p.overPcaJustification)}</div></div>`:''}
+    ${pcaPanelHtml(chk).replace('PECS check:','PECS check on amended PO:')}</div></div>`;
 }
 function viewPO(id){
   const po=poData.find(x=>x.id===id);if(!po)return;
@@ -1667,9 +1782,9 @@ function viewPO(id){
     ${po.lastAmendRejection?`<div class="notice bad"><i class="ti ti-x"></i><div><b>Last amendment request rejected:</b> ${esc(po.lastAmendRejection)}</div></div>`:''}
     ${po.cancelReason?`<div class="notice bad"><i class="ti ti-ban"></i><div><b>Cancelled:</b> ${esc(po.cancelReason)}</div></div>`:''}
     ${poAmendHtml(po)}
-    ${pcaPanelHtml(po.pcaCheck||live).replace('PCA check:','PCA check ('+(amending?'released version':'frozen at submission')+', PCA v'+(po.pcaVersion||'?')+'):')}
-    ${po.overPcaJustification?`<div class="notice warn"><i class="ti ti-message-exclamation"></i><div><b>Buyer’s over-PCA justification:</b> ${esc(po.overPcaJustification)}</div></div>`:''}
-    <div class="table-wrap"><table><thead><tr><th>#</th><th>Item</th><th>HSN</th><th class="num">Qty</th><th class="num">Net rate (${esc(c)})</th>${c==='INR'?'<th class="num">GST</th>':''}<th class="num">Amount</th><th class="num">PCA rate ₹</th><th>PCA check</th></tr></thead><tbody>${lines}</tbody></table></div>
+    ${pcaPanelHtml(po.pcaCheck||live).replace('PECS check:','PECS check ('+(amending?'released version':'frozen at submission')+', PECS v'+(po.pcaVersion||'?')+'):')}
+    ${po.overPcaJustification?`<div class="notice warn"><i class="ti ti-message-exclamation"></i><div><b>Buyer’s over-PECS justification:</b> ${esc(po.overPcaJustification)}</div></div>`:''}
+    <div class="table-wrap"><table><thead><tr><th>#</th><th>Item</th><th>HSN</th><th class="num">Qty</th><th class="num">Net rate (${esc(c)})</th>${c==='INR'?'<th class="num">GST</th>':''}<th class="num">Amount</th><th class="num">PECS rate ₹</th><th>PECS check</th></tr></thead><tbody>${lines}</tbody></table></div>
     ${(po.cancelledLines||[]).length?`<div class="muted" style="margin-top:6px">Cancelled by amendment: ${po.cancelledLines.map(l=>esc(l.description)+' (Amd '+(l.cancelledInAmd||'?')+')').join('; ')}</div>`:''}
     ${(po.driveFiles||[]).length?`<div class="card" style="margin-top:12px"><div class="card-header"><span><i class="ti ti-brand-google-drive"></i> Filed in Drive (ProMS folder)</span></div><div style="padding:8px 12px">${po.driveFiles.map(f=>`<div>${f.amd?'Amendment '+f.amd:'Original'} — ${f.print?`<a target="_blank" href="${esc(f.print)}">printable copy</a>`:''} ${f.snapshot?`· <a target="_blank" href="${esc(f.snapshot)}">data snapshot</a>`:''} <span class="muted">${fmtDateTime(f.at)}</span></div>`).join('')}</div></div>`:''}
     ${amds.length?`<div class="card" style="margin-top:12px"><div class="card-header"><span>Amendment history</span></div><table><thead><tr><th>No.</th><th>Date</th><th>Reason</th><th>Changes</th><th class="num">Value</th></tr></thead><tbody>${amds.map(x=>`<tr><td>${x.no}</td><td>${fmtDate(x.date)}</td><td>${esc(x.reason)}</td><td>${(x.changes||[]).map(esc).join('<br>')}</td><td class="num">${inr2(x.valueBefore)} → ${inr2(x.valueAfter)}</td></tr>`).join('')}</tbody></table></div>`:''}
@@ -1677,7 +1792,7 @@ function viewPO(id){
       <table><thead><tr><th>Vendor</th><th>Ref</th><th class="num">Ex-GST landed ₹</th><th class="num">Lines</th><th></th></tr></thead><tbody>${quotes}</tbody></table>
       ${cs.justification?`<div class="notice info" style="margin-top:10px"><i class="ti ti-message"></i><div><b>Selection justification:</b> ${esc(cs.justification)}</div></div>`:''}</div>`:''}
     <div class="card"><div class="card-header"><span>Approval trail</span></div>${auditList(po.audit)}</div>
-    ${canL1||canL2?`<div class="form-group"><label>Approver remarks</label><textarea id="apprRemarks" placeholder="${canL2?'Remarks on approving over-PCA spend':'Optional remarks'}"></textarea></div>`:''}
+    ${canL1||canL2?`<div class="form-group"><label>Approver remarks</label><textarea id="apprRemarks" placeholder="${canL2?'Remarks on approving over-PECS spend':'Optional remarks'}"></textarea></div>`:''}
     <div class="btn-row" style="justify-content:flex-end">
       <button class="btn" onclick="closeModal()">Close</button>
       ${verOpts}
@@ -1700,12 +1815,12 @@ async function approvePO(id){
     const over=!!p.pcaCheck?.overPca;
     if(po.status==='AMEND_PRATIM'&&canApproveL1()){
       if(over&&!isUpdesh()){
-        await db.collection(PM_PO).doc(id).update({status:'AMEND_UPDESH','pendingAmendment.approvals':FV.arrayUnion(clean({level:'AMEND_PRATIM',by:me(),byName:myName(),at:nowIso(),remarks:rem||''})),updatedAt:nowIso(),audit:FV.arrayUnion(audit(null,`Amendment ${p.amendmentNo} approved by ${myName()} (L1) — over PCA, escalated to Updesh${rem?' — '+rem:''}`))});
+        await db.collection(PM_PO).doc(id).update({status:'AMEND_UPDESH','pendingAmendment.approvals':FV.arrayUnion(clean({level:'AMEND_PRATIM',by:me(),byName:myName(),at:nowIso(),remarks:rem||''})),updatedAt:nowIso(),audit:FV.arrayUnion(audit(null,`Amendment ${p.amendmentNo} approved by ${myName()} (L1) — over PECS, escalated to Updesh${rem?' — '+rem:''}`))});
         closeModal();return showToast('Amendment sent to Updesh');
       }
-      if(over&&!rem)return showToast('Add remarks when approving an over-PCA amendment','error');
+      if(over&&!rem)return showToast('Add remarks when approving an over-PECS amendment','error');
     }else if(po.status==='AMEND_UPDESH'&&canApproveL2()){
-      if(!rem)return showToast('Add remarks when approving an over-PCA amendment','error');
+      if(!rem)return showToast('Add remarks when approving an over-PECS amendment','error');
     }else return showToast('You cannot approve this amendment at its current stage','error');
     const patch=amendmentApplyPatch(po,rem,po.status);
     patch.audit=FV.arrayUnion(audit(null,`Amendment ${p.amendmentNo} approved & released by ${myName()} — ${inr(p.valueBefore)} → ${inr(p.valueAfter)}${rem?' — '+rem:''}`));
@@ -1713,10 +1828,10 @@ async function approvePO(id){
   }
   let next,act;
   if(po.status==='PENDING_PRATIM'&&canApproveL1()){
-    if(po.pcaCheck?.overPca&&!isUpdesh()){next='PENDING_UPDESH';act='Approved by '+myName()+' (L1) — over PCA, escalated to Updesh'}
-    else{next='RELEASED';act=`Approved & released by ${myName()}${po.pcaCheck?.overPca?' (L1 + over-PCA approval)':''}`}
+    if(po.pcaCheck?.overPca&&!isUpdesh()){next='PENDING_UPDESH';act='Approved by '+myName()+' (L1) — over PECS, escalated to Updesh'}
+    else{next='RELEASED';act=`Approved & released by ${myName()}${po.pcaCheck?.overPca?' (L1 + over-PECS approval)':''}`}
   }else if(po.status==='PENDING_UPDESH'&&canApproveL2()){
-    if(!rem)return showToast('Add remarks when approving an over-PCA PO','error');next='RELEASED';act='Over-PCA spend approved & released by '+myName();
+    if(!rem)return showToast('Add remarks when approving an over-PECS PO','error');next='RELEASED';act='Over-PECS spend approved & released by '+myName();
   }else return showToast('You cannot approve this PO at its current stage','error');
   const patch={status:next,approvals:FV.arrayUnion(clean({level:po.status,by:me(),byName:myName(),at:nowIso(),remarks:rem||''})),audit:FV.arrayUnion(audit(null,act+(rem?' — '+rem:'')))};
   if(next==='RELEASED'){patch.releasedAt=nowIso();patch.releasedBy=me()}
@@ -1744,7 +1859,7 @@ async function withdrawPO(id){
   await db.collection(PM_PO).doc(id).update({status:'REJECTED',rejectedReason:'Withdrawn by buyer for revision',audit:FV.arrayUnion(audit(null,'Withdrawn by '+myName()))});closeModal()}
 async function cancelPO(id){
   const po=poData.find(x=>x.id===id);if(!po||po.status!=='RELEASED')return showToast('Only a released PO (with no pending amendment) can be cancelled','error');
-  const r=prompt('Reason for cancelling this RELEASED PO? (quantities return to BOQ balance)');if(!r)return;
+  const r=prompt('Reason for cancelling this RELEASED PO? (quantities return to PECS balance)');if(!r)return;
   await db.collection(PM_PO).doc(id).update({status:'CANCELLED',cancelReason:r,cancelledAt:nowIso(),cancelledBy:me(),audit:firebase.firestore.FieldValue.arrayUnion(audit(null,'Cancelled by '+myName()+' — '+r))});
   if(po.csId)await db.collection(PM_CS).doc(po.csId).update({status:'FINALIZED',audit:firebase.firestore.FieldValue.arrayUnion(audit(null,`PO ${po.poNumber} cancelled — CS back to finalised`))}).catch(()=>{});
   closeModal();showToast('PO cancelled')}
@@ -1753,7 +1868,10 @@ function renderApprovals(){
   const mine=myApprovalQueue();
   const others=poData.filter(p=>['PENDING_PRATIM','PENDING_UPDESH','AMEND_PRATIM','AMEND_UPDESH'].includes(p.status)&&!mine.includes(p));
   const rejected=poData.filter(p=>p.status==='REJECTED');
-  el('tab-approvals').innerHTML=`<div class="notice info"><i class="ti ti-route"></i><div><b>Approval route:</b> Buyer submits → <b>Pratim</b> approves → released. If the PO (or an amendment to it) exceeds PCA it goes on to <b>Updesh</b> before release. Updesh can approve at either stage. A pending amendment never changes the released PO until it is approved.</div></div>
+  const pecsQ=Object.values(pmData).filter(x=>x.pecsPending).map(x=>({pm:x,p:projectById(x.id)||{}}));
+  const pecsCard=pecsQ.length?`<div class="card"><div class="card-header"><span><i class="ti ti-trending-down"></i> PECS below sales-PCA margin — awaiting Updesh (${pecsQ.length})</span></div><div class="table-wrap"><table><thead><tr><th>Project</th><th>PECS version</th><th class="num">PECS GM %</th><th class="num">Sales PCA GM %</th><th>Submitted by</th><th></th></tr></thead><tbody>${pecsQ.map(({pm,p})=>`<tr><td><b>${esc(p.number||pm.projectNumber||'')}</b><div class="muted">${esc(p.name||pm.projectName||'')}</div></td><td>v${pm.pecsPending.version}</td><td class="num flag">${pctS(pm.pecsPending.gmPct,2)}</td><td class="num">${pctS(pm.pecsPending.salesGmPct,2)}</td><td>${esc(pm.pecsPending.uploadedByName||'')}</td><td><button class="btn sm" onclick="activeProjectId='${pm.id}';projSubTab='pecs';switchTab('project')"><i class="ti ti-eye"></i>${isUpdesh()?'Review':'View'}</button></td></tr>`).join('')}</tbody></table></div></div>`:'';
+  el('tab-approvals').innerHTML=`<div class="notice info"><i class="ti ti-route"></i><div><b>Approval route:</b> A PECS with gross margin below the sales PCA goes straight to <b>Updesh</b> (equal or higher needs no approval). POs: Buyer submits → <b>Pratim</b> approves → released. If the PO (or an amendment to it) exceeds PECS it goes on to <b>Updesh</b> before release. Updesh can approve at either stage. A pending amendment never changes the released PO until it is approved.</div></div>
+    ${pecsCard}
     <div class="card"><div class="card-header"><span>Awaiting my approval (${mine.length})</span></div>${poTable(mine)}</div>
     ${others.length?`<div class="card"><div class="card-header"><span>Pending with others (${others.length})</span></div>${poTable(others)}</div>`:''}
     ${rejected.length?`<div class="card"><div class="card-header"><span>Rejected — awaiting buyer revision (${rejected.length})</span></div>${poTable(rejected)}</div>`:''}`;
